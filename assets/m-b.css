@@ -1,0 +1,179 @@
+/* m-b: mobil uyarlama (10 Kasım 2026)
+   Kapsam: ana sayfa "İki adımda sonuç" adımları + rozetleri, "Uçtan uca SGK kapsamı" kanal kartları (.chn/.cx),
+   hizmetler: işlem hacmi (.sv-met-grid), fiyat kartları (.sv-pc), karşılaştırma tablosu (.sv-tbl),
+   teşvik akordeonu (.sv-tesvik .pacc), sektör listesi (.sv-sect-grid).
+   Masaüstü (>=901 px) değişmez; tüm kurallar max-width sorgusu içinde. */
+
+/* ---------- 1 · İki adımda sonuç: kompakt adımlar ---------- */
+@media (max-width: 560px) {
+  .dark .steps3.steps4 { gap: 0; }
+  .dark .steps4 .stp { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: 12px; align-items: baseline; padding: 16px 0; }
+  .dark .steps4 .stp::before { grid-row: 1 / span 2; margin: 0; font-size: 2rem; font-weight: 400; line-height: 1; }
+  .dark .steps4 .stp h3 { font-size: 1.1rem; line-height: 1.35; margin: 0 0 4px; }
+  .dark .steps4 .stp p { font-size: .95rem; line-height: 1.5; margin: 0; }
+
+  /* Rozetler: kapsül yerine tam genişlik, onay işaretli satırlar */
+  .dark .steps4 ~ .badges { flex-direction: column; align-items: stretch; gap: 8px !important; margin-top: 24px !important; }
+  .dark .steps4 ~ .badges .chip2 { display: flex; align-items: flex-start; gap: 10px; border-radius: 14px; padding: 11px 14px; font-size: .88rem; line-height: 1.4; text-align: left; }
+  .dark .steps4 ~ .badges .chip2::before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%;
+    background: #ff6126 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
+}
+
+/* ---------- 2 · Kanal kartları: mobilde akordeon (tek sütun) ----------
+   Açık/kapalı durum layout.js'teki .active sınıfından gelir; m-b.js (varsa) tek kart açık tutar
+   ve aria-expanded ekler. JS yoksa her sütunun açık kartı açık görünür. */
+@media (max-width: 900px) {
+  .chn { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .chn-col { display: contents; }
+  .cx, .cx.active { height: auto; }
+  .cx { display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-rows: auto auto 0fr; column-gap: 14px; row-gap: 0;
+    padding: 14px 16px; border-radius: 18px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    transition: grid-template-rows .3s cubic-bezier(.23, 1, .32, 1); }
+  .cx.active { grid-template-rows: auto auto 1fr; cursor: default; }
+  .cx .i3d, .cx .i3d img { width: 40px; height: 40px; }
+  .cx .i3d { grid-row: 1; grid-column: 1; align-self: center; }
+  .cx h3 { grid-row: 1; grid-column: 2; align-self: center; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0; font-size: 1.05rem; line-height: 1.35; }
+  .cx h3::after { content: ""; flex: none; width: 9px; height: 9px; margin-right: 4px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; opacity: .55;
+    transform: translateY(-3px) rotate(45deg); transition: transform .3s cubic-bezier(.23, 1, .32, 1); }
+  .cx.active h3::after { transform: translateY(2px) rotate(-135deg); }
+  .cx > p, .cx > .cx-media { grid-column: 1 / -1; min-height: 0; overflow: hidden; margin: 0; }
+  .cx > p { font-size: .95rem; line-height: 1.5; max-height: 0; opacity: 0;
+    transition: max-height .3s cubic-bezier(.23, 1, .32, 1), margin .3s cubic-bezier(.23, 1, .32, 1), opacity .2s cubic-bezier(.23, 1, .32, 1); }
+  .cx.active > p { max-height: 12em; margin: 10px 0 4px; }
+  .cx > .cx-media { height: auto; margin: 0; opacity: 0; visibility: hidden; transition: opacity .2s cubic-bezier(.23, 1, .32, 1), visibility 0s .3s; }
+  .cx.active > .cx-media { opacity: 1; visibility: visible; transition: opacity .3s cubic-bezier(.23, 1, .32, 1) .06s, visibility 0s; }
+  .cx.active > p { opacity: 1; transition: max-height .3s cubic-bezier(.23, 1, .32, 1), margin .3s cubic-bezier(.23, 1, .32, 1), opacity .3s cubic-bezier(.23, 1, .32, 1) .06s; }
+  .cx-media > .link { padding: 4px 0 8px; }
+  .cx-media > .mk, .cx-media > .phone { margin-top: 4px; }
+  .cx-media > .mk { padding-bottom: 4px; }
+  .cx-media > .phone { margin-bottom: -14px; }
+  /* Maket satırları: kesilmesin, sarabilsin */
+  .cx .mk-res { gap: 10px; padding: 9px 10px; border-radius: 14px; }
+  .cx .mk-av { width: 32px; height: 32px; border-radius: 10px; font-size: .72rem; }
+  .cx .mk-res b { font-size: .86rem; line-height: 1.3; }
+  .cx .mk-res small { white-space: normal; overflow: visible; text-overflow: clip; font-size: .74rem; line-height: 1.35; }
+  .cx .mk-tag { font-size: .66rem; padding: 3px 7px; white-space: nowrap; }
+  .cx .phone { width: min(300px, 100%); padding: 12px 10px 8px; }
+  .cx .ph-row { gap: 8px; padding: 8px 2px; }
+  .cx .ph-code { width: 40px; height: 40px; border-radius: 10px; font-size: .66rem; }
+  .cx .ph-row small { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.3; }
+  .cx .ph-row em { flex: none; }
+}
+@media (min-width: 561px) and (max-width: 900px) {
+  .cx > p { max-width: 560px; }
+  .cx-media > .mk { width: 100%; max-width: 480px; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  .cx, .cx h3::after, .cx > p, .cx > .cx-media, .cx.active > p, .cx.active > .cx-media { transition: none; }
+}
+
+/* ---------- 3 · Fiyat kartları (hizmetler) ---------- */
+@media (max-width: 560px) {
+  .sv-price-grid { gap: 18px; }
+  .sv-pc { gap: 8px; padding: 24px 18px 18px; border-radius: 20px; }
+  .sv-pc > span[data-icon] svg { width: 28px; height: 28px; }
+  .sv-pc .kick { font-size: .72rem; }
+  .sv-pc .sv-pv { font-size: 2rem; line-height: 1.15; }
+  .sv-pc small { margin-top: -4px; font-size: .85rem; }
+  .sv-pc p { font-size: .95rem; line-height: 1.5; margin: 2px 0 8px; }
+  .sv-pc .btn { min-height: 48px; height: 48px; padding-top: 0; padding-bottom: 0; }
+}
+
+/* ---------- 4 · İşlem hacmi (hizmetler): sıkı liste ---------- */
+@media (max-width: 560px) {
+  .sv-metrics { padding: 64px 0 40px; }
+  .sv-met-grid { grid-template-columns: minmax(0, 1fr); gap: 0; text-align: left; }
+  .sv-met-grid > div { grid-template-columns: 28px minmax(0, 1fr); justify-items: start; align-items: center; column-gap: 14px; row-gap: 2px; padding: 16px 0; border-top: 1px solid var(--line, rgba(38,26,40,.12)); }
+  .sv-met-grid > div:last-child { border-bottom: 1px solid var(--line, rgba(38,26,40,.12)); }
+  .sv-met-grid > div > span[data-icon] { grid-row: 1 / span 2; align-self: start; margin-top: 6px; }
+  .sv-met-grid > div > span[data-icon] svg { width: 28px; height: 28px; }
+  .sv-met-grid b { font-size: 1.8rem; line-height: 1.15; }
+  .sv-met-grid p { font-size: .9rem; line-height: 1.45; max-width: none; }
+}
+
+/* ---------- 5 · Diğer hizmetler bölümleri ---------- */
+@media (max-width: 560px) {
+  /* Karşılaştırma tablosu: 320 px'te yatay kaydırmadan sığsın */
+  .sv-tbl { min-width: 0; table-layout: fixed; }
+  .sv-tbl th, .sv-tbl td { padding: 11px 4px; font-size: .82rem; line-height: 1.35; }
+  .sv-tbl thead th:first-child, .sv-tbl tbody th { padding-left: 12px; padding-right: 6px; font-size: .8rem; }
+  .sv-tbl thead th:not(:first-child) { width: 60px; padding-left: 1px; padding-right: 1px; font-size: .66rem; line-height: 1.25; letter-spacing: -.01em; }
+  .sv-tbl thead small { font-size: .64rem; margin-top: 2px; }
+  .sv-filter { gap: 8px; }
+  .sv-filter button { padding: 8px 12px; font-size: .84rem; min-height: 40px; }
+
+  /* Teşvik akordeonu: başlıklar daha küçük, duraklat düğmesi alttaki kartla çakışmasın */
+  .sv-tesvik .pacc-it { padding: 12px 0 12px 18px; }
+  .sv-tesvik .pacc-it b { font-size: 1.15rem; }
+  .sv-tesvik .pacc-d { font-size: .95rem; }
+  .sv-tesvik .pacc { padding-bottom: 64px; }
+  .sv-tesvik [data-pacc] > .motion-btn { bottom: 8px; }
+  .sv-tes-tools .chips { gap: 8px; }
+  .sv-tes-tools .chip2 { padding: 7px 12px; font-size: .84rem; border-radius: 12px; }
+
+  /* Sektörler: simge solda, sıkı liste */
+  .sv-sect-grid { gap: 22px; }
+  .sv-sect-grid > div { grid-template-columns: 26px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; }
+  .sv-sect-grid > div > span[data-icon] { grid-row: 1 / span 2; margin-top: 2px; }
+  .sv-sect-grid > div > span[data-icon] svg { width: 26px; height: 26px; }
+  .sv-sect-grid h3 { font-size: 1.05rem; margin: 0; }
+  .sv-sect-grid p { font-size: .95rem; }
+}
+
+/* Teşvik yöntemleri maket kartları (hizmetler .pacc-slide .sv-mock), mobil: daha ince boşluk, küçük yazı */
+@media (max-width: 560px) {
+  .pacc-vis { height: 236px; border-radius: 20px; }
+  .pacc-slide .sv-mock, .sv-sticky .st-item .mob .sv-mock { padding: 18px 16px; gap: 8px; border-radius: 20px; }
+  .sv-mock .mk-h { font-size: .95rem; margin-bottom: 2px; }
+  .sv-mock .mk-r { padding: 10px 12px; border-radius: 12px; gap: 10px; font-size: .86rem; line-height: 1.3; }
+  .sv-mock .mk-r > :not(.tg) { min-width: 0; }
+  .sv-mock .mk-r { overflow-wrap: anywhere; }
+  .sv-mock .mk-r .tg { flex: none; font-size: .7rem; padding: 3px 9px; }
+  .sv-mock .mk-note { font-size: .78rem; margin-top: 2px; }
+  .sv-mock::before { width: 52%; right: -14%; bottom: -24%; }
+}
+
+/* Sektörler, mobil: 12 maddelik dikey liste yerine 2 satırlı yatay kaydırmalı kart dizisi */
+@media (max-width: 560px) {
+  .sv-sect-grid { grid-template-columns: none; grid-auto-flow: column; grid-template-rows: repeat(2, auto); grid-auto-columns: 76%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 2px 16px 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .sv-sect-grid::-webkit-scrollbar { display: none; }
+  .sv-sect-grid > div { scroll-snap-align: start; background: #fbf9f6; border-radius: 16px; padding: 14px; box-shadow: inset 0 0 0 1px rgba(38, 26, 40, .07); grid-template-columns: 22px minmax(0, 1fr); column-gap: 10px; align-content: start; }
+  .sv-sect-grid > div > span[data-icon] svg { width: 20px; height: 20px; }
+  .sv-sect-grid h3 { font-size: .92rem; line-height: 1.3; }
+  .sv-sect-grid p { grid-column: 1 / -1; font-size: .8rem; line-height: 1.45; color: #4f474d; margin-top: 4px; }
+}
+
+/* Hizmetler iletişim formu: landing formuyla aynı kompakt mobil düzen */
+@media (max-width: 560px) {
+  .sv-contact .fcard { padding: 20px 18px; border-radius: 22px; }
+  .sv-contact .fcard h2 { font-size: 1.4rem; line-height: 1.2; margin-bottom: 6px; }
+  .sv-contact .fcard .s { font-size: .9rem; line-height: 1.5; margin-bottom: 16px; }
+  .sv-contact .fcard .f2 { grid-template-columns: 1fr; gap: 0; }
+  .sv-contact .fcard .fld { gap: 5px; margin-bottom: 12px; }
+  .sv-contact .fcard .fld label { font-size: .85rem; line-height: 1.3; }
+  .sv-contact .fcard .fld input, .sv-contact .fcard .fld select, .sv-contact .fcard .dd-btn { height: 46px; border-radius: 12px; padding-left: 14px; font-size: 16px; }
+  .sv-contact .fcard .dd-btn { padding-right: 12px; }
+  .sv-contact .fcard .fld .err { font-size: .78rem; }
+  .sv-contact .fcard .cons { gap: 10px; margin: 4px 0 16px; font-size: .8rem; line-height: 1.5; align-items: flex-start; }
+  .sv-contact .fcard .cons input[type=checkbox] { width: 24px; height: 24px; margin: 1px 0 0; }
+  .sv-contact .fcard .btn { height: 48px; min-height: 0; padding: 0 18px; font-size: .98rem; gap: 8px; }
+  .sv-contact .fcard .ftrust { gap: 4px 14px; margin-top: 12px; font-size: .78rem; line-height: 1.4; text-align: center; }
+  .sv-contact .fcard .okbox { padding: 16px 0; }
+}
+
+/* Hizmetler iletişim bilgileri, mobil: ince satırlar, küçük ikon, yoğun rakam şeridi */
+@media (max-width: 560px) {
+  .sv-contact-in { gap: 28px; }
+  .sv-cinfo { margin: 18px 0; gap: 0; border-radius: 16px; background: #fbf9f6; box-shadow: inset 0 0 0 1px rgba(38, 26, 40, .07); overflow: hidden; }
+  .sv-cinfo li { gap: 12px; padding: 12px 14px; align-items: flex-start; font-size: .86rem; line-height: 1.45; }
+  .sv-cinfo li + li { border-top: 1px solid rgba(38, 26, 40, .06); }
+  .sv-cinfo li > span:first-child { width: 32px; height: 32px; border-radius: 10px; }
+  .sv-cinfo li > span:first-child svg { width: 16px; height: 16px; }
+  .sv-cinfo b { font-size: .78rem; font-weight: 600; color: #6b6370; letter-spacing: .02em; margin-bottom: 1px; }
+  .sv-cinfo a { font-size: .92rem; font-weight: 500; text-decoration-thickness: 1px; }
+  .sv-proof { grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: 14px; }
+  .sv-proof > div, .sv-proof > div:nth-child(-n+2), .sv-proof > div:nth-child(2) { padding: 10px 6px; border-bottom: 0; border-right: 1px solid var(--line); text-align: center; }
+  .sv-proof > div:last-child { border-right: 0; }
+  .sv-proof b { font-size: 1rem; }
+  .sv-proof small { font-size: .66rem; line-height: 1.2; display: block; }
+}

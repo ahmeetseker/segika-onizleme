@@ -1,0 +1,2 @@
+vanilla-cookieconsent 3.1.0 (Orest Bida, MIT) — https://github.com/orestbida/cookieconsent
+npm: https://registry.npmjs.org/vanilla-cookieconsent/-/vanilla-cookieconsent-3.1.0.tgz

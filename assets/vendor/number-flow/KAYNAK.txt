@@ -1,0 +1,3 @@
+number-flow 0.6.2 (MIT) — https://number-flow.barvian.me
+npm paketi (tradehubfront/node_modules/number-flow) esbuild ile tek IIFE dosyaya paketlendi, 10 Kasım 2026.
+<number-flow> custom element olarak tanımlanır.

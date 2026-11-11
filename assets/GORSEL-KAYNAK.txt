@@ -1,0 +1,23 @@
+scene-mountain.webp
+Kaynak: Unsplash, "Misty mountain peaks at sunrise with warm light" (Julien Riedel), https://unsplash.com/photos/sizw4cX8Sds
+Lisans: Unsplash License (https://unsplash.com/license), ticari kullanım serbest, atıf zorunlu değil.
+Düzenleme: 2400x3000, renk +%15, krem (#F2DED0) ile %38 karıştırıldı.
+
+case/*.webp (ana sayfa sektör kartları) — hepsi Unsplash, Unsplash License (ticari kullanım serbest, atıf zorunlu değil), 1600 px'e küçültüldü:
+- mali.webp: https://unsplash.com/photos/a-person-pointing-at-a-calculator-on-a-desk-eGI0aGwuE-A
+- tekstil.webp: https://unsplash.com/photos/workers-operating-looms-in-a-textile-factory-4v4OIvj6dic
+- lojistik.webp: https://unsplash.com/photos/a-large-warehouse-filled-with-lots-of-boxes--aCrA9FmT8Y
+- perakende.webp: https://unsplash.com/photos/clothing-boutique-interior-with-hanging-racks-qnKhZJPKFD8
+- insaat.webp: https://unsplash.com/photos/seven-construction-workers-standing-on-white-field-x-ghf9LjrVg
+
+Entegrasyon logoları (assets/int/) — marka sahiplerinin resmi sitelerinden, entegrasyonu belirtmek için; marka hakları sahiplerine aittir (10 Kasım 2026):
+- luca.png   https://luca.com.tr/images/logo.png
+- logo.svg   https://www.logo.com.tr/logo.svg
+- mikro.svg  https://www.mikro.com.tr/img/mikro_logo_colored.svg
+- eta.png    https://web.eta.com.tr/img/logo.png
+- zirve.svg  https://www.zirveyazilim.net/ (sayfa içi SVG; viewBox eklendi, dolgu sitenin mavisi #1E37C2)
+- orca.png   https://www.orcayazilim.com.tr/resimler/logo/logo_20260424_200521_739316.png
+- sap.svg    https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg
+- canias.svg https://canias.com/wp-content/uploads/2024/09/SVG-Canias-mavi-120x33-1.svg
+
+Favicon (11 Kasım 2026): segika.com favicon görseli (wp-content/uploads/2025/07/sgk-tesvik-favicon-*.png) temel alındı, yeşil nokta Segika turuncusu #f4482b yapıldı.

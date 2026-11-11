@@ -1,0 +1,4 @@
+3D ikonlar: 3dicons.co (CC0 1.0 — kamu malı, atıf zorunlu değil). Sürüm: dynamic/400/gradient (zemin şeffaflaştırıldı, PNG).
+link.png: 3dicons.co "link" (2d9fa2-link, dynamic/400/gradient), beyaz zemin şeffaflaştırıldı.
+heart.png, file-text.png, bell.png: 3dicons.co (1acc3d-heart, 65d841-file-text, ef4a90-bell; dynamic/400/gradient), beyaz zemin şeffaflaştırıldı.
+chart.png, folder.png, person.png: 3dicons.co (4a4275-chart, 176980-folder, a14880-boy; dynamic/400/gradient), beyaz zemin şeffaflaştırıldı.

@@ -1,0 +1,115 @@
+/* m-a: mobil uyarlama (10 Kasım 2026)
+   Kapsam: genel bölüm tipografisi, "Tek platform" sekmeleri + kartlar, teşvik araçları akordeonu,
+   vaka kartları (ana sayfa + landing), rakamlar, entegrasyon bandı. Masaüstü (≥901 px) etkilenmez. */
+
+/* ===== 1. Genel bölüm tipografisi ve boşluklar ===== */
+@media (max-width: 560px) {
+  .section { padding: 56px 0; }
+  h2 { font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.15; }
+  .head { margin-bottom: 32px; }
+  .head h2 { font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.15; margin-bottom: 12px; }
+  .head p { font-size: 1rem; line-height: 1.55; }
+}
+
+/* ===== 2. Tek platform: kaydırılabilir hap sekmeler + ekrana sığan kartlar ===== */
+@media (max-width: 760px) {
+  .ptabs { position: relative; gap: 8px; margin: 0 -16px 20px; padding: 2px 16px 4px; scroll-padding: 0 16px; -webkit-mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .ptab { gap: 6px; padding: 8px 14px; min-height: 40px; border: 1px solid rgba(38, 26, 40, .12); border-radius: 99px; background: rgba(255, 255, 255, .55); font-size: .9rem; white-space: nowrap; }
+  .ptab[aria-selected="true"] { background: #fff; border-color: rgba(255, 97, 38, .55); }
+  .ptab svg { width: 15px; height: 15px; }
+  .rail { gap: 12px; padding: 8px 20px 24px; scroll-padding: 0 20px; }
+  .pcard { flex: 0 0 calc(100vw - 40px); max-width: 420px; min-width: 0; padding: 10px; }
+  .pcard.active { transform: none; }
+  .pcard .shot { height: auto; min-height: 0; padding: 60px 10px 12px; gap: 6px; border-radius: 14px; }
+  .pcard .shot > * { min-width: 0; }
+  .shot-3d { top: 10px; right: 12px; width: 46px; height: 46px; }
+  .shot-3d img { width: 46px; height: 46px; }
+  .pcard .ui-row { gap: 8px; padding: 6px 8px 6px 6px; border-radius: 10px; font-size: .76rem; }
+  .pcard .ri { width: 24px; height: 24px; border-radius: 7px; }
+  .pcard .ri svg { width: 13px; height: 13px; }
+  .pcard .tg { font-size: .64rem; padding: 2px 7px; }
+  .pcard .txt { padding: 14px 6px 4px; }
+  .pcard h3 { font-size: .98rem; margin-bottom: 6px; }
+  .pcard p { font-size: .9rem; line-height: 1.5; margin-bottom: 10px; }
+}
+
+/* ===== 3. Teşvik araçları: mobilde de tek açık akordeon (yalnız ana sayfa) ===== */
+@media (max-width: 900px) {
+  [data-page="home"] .stepper[data-auto] .st-item { padding: 14px 0 14px 16px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  [data-page="home"] .stepper[data-auto] .st-item.active { cursor: default; }
+  [data-page="home"] .stepper[data-auto] .st-item small { margin-bottom: 4px; font-size: 13px; }
+  [data-page="home"] .stepper[data-auto] .st-item h3 { font-size: 18px; line-height: 26px; }
+  [data-page="home"] .stepper[data-auto] .st-item > p,
+  [data-page="home"] .stepper[data-auto] .st-item > .link,
+  [data-page="home"] .stepper[data-auto] .st-item > .mob {
+    display: block; overflow: hidden; max-height: 0; opacity: 0; margin-top: 0;
+    transition: max-height .3s cubic-bezier(.23, 1, .32, 1), opacity .2s cubic-bezier(.23, 1, .32, 1), margin-top .3s cubic-bezier(.23, 1, .32, 1);
+  }
+  [data-page="home"] .stepper[data-auto] .st-item > .link { display: flex; width: max-content; }
+  [data-page="home"] .stepper[data-auto] .st-item.active > p { max-height: 160px; opacity: 1; margin-top: 8px; font-size: 15px !important; line-height: 23px !important; transition-delay: 0s, .08s, 0s; }
+  [data-page="home"] .stepper[data-auto] .st-item.active > .link { max-height: 44px; opacity: 1; margin-top: 6px; transition-delay: 0s, .08s, 0s; }
+  [data-page="home"] .stepper[data-auto] .st-item.active > .mob { max-height: 340px; opacity: 1; margin-top: 12px; transition-delay: 0s, .1s, 0s; }
+  /* Sol çizgi: tüm maddelerde ince ray, açık maddede turuncu dolu */
+  [data-page="home"] .stepper[data-auto] .st-bar { opacity: 1; background: rgba(38, 26, 40, .1); }
+  [data-page="home"] .stepper[data-auto] .st-item .st-bar i { height: 0%; transition: height .3s cubic-bezier(.23, 1, .32, 1); }
+  [data-page="home"] .stepper[data-auto] .st-item.active .st-bar i { height: 100%; }
+  [data-page="home"] .stepper[data-auto] .st-bar::before, [data-page="home"] .stepper[data-auto] .st-bar::after { display: none; }
+
+  /* Kompakt sohbet kartları */
+  [data-page="home"] .st-item .mob .ai-scene { gap: 8px; padding: 12px; border-radius: 18px; }
+  [data-page="home"] .st-item .mob .ai-orb { width: min(46%, 170px); right: -40px; bottom: -40px; }
+  [data-page="home"] .st-item .mob .ai-msg { padding: 10px 12px 11px; border-radius: 14px; }
+  [data-page="home"] .st-item .mob .ai-who { gap: 6px; margin-bottom: 4px; font-size: .8rem; }
+  [data-page="home"] .st-item .mob .ai-who i { width: 11px; height: 11px; }
+  [data-page="home"] .st-item .mob .ai-msg p { font-size: .85rem; line-height: 1.45; }
+  [data-page="home"] .st-item .mob .ai-obj { gap: 10px; padding: 8px 10px 8px 8px; border-radius: 14px; }
+  [data-page="home"] .st-item .mob .ai-obj > span:last-child { min-width: 0; }
+  [data-page="home"] .st-item .mob .ai-tile { width: 38px; height: 38px; border-radius: 10px; border-width: 1.5px; }
+  [data-page="home"] .st-item .mob .ai-tile svg { width: 20px; height: 20px; }
+  [data-page="home"] .st-item .mob .ai-obj b { font-size: .86rem; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  [data-page="home"] .st-item .mob .ai-obj small { font-size: .76rem; margin-top: 1px; }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  [data-page="home"] .stepper[data-auto] .st-item > p,
+  [data-page="home"] .stepper[data-auto] .st-item > .link,
+  [data-page="home"] .stepper[data-auto] .st-item > .mob,
+  [data-page="home"] .stepper[data-auto] .st-item .st-bar i { transition: none; }
+}
+
+/* ===== 4. Vaka kartları (ana sayfa + landing) ===== */
+@media (max-width: 900px) {
+  /* landing.html satır içi height:380px veriyor; dikey yığında taşma yapıp sonraki başlığın üstüne biniyordu */
+  .cases { height: auto !important; gap: 10px; }
+  .case { height: 60px; }
+  .case.active { height: 340px; }
+  .case .lab { font-size: 1rem; }
+  .case .body { padding: 18px 18px 16px; }
+  .case .cchip { padding: 6px 12px; font-size: .8rem; }
+  .case .num { position: static; margin-top: 14px; text-align: left; font-size: 2.2rem; line-height: 1.05; }
+  .case .num small { margin-top: 4px; font-size: .85rem; line-height: 1.3; }
+  .case .q { margin: auto 0 8px; font-size: .95rem; line-height: 1.45; }
+  .case .who { font-size: .8rem; line-height: 1.4; }
+}
+
+/* ===== 5. Rakamlar: içerik boyunda kartlar ===== */
+@media (max-width: 760px) {
+  .num-sec .sv-tabbar { margin-bottom: 20px; padding: 4px; }
+  .num-sec .sv-tabbar button { padding: 8px 13px; font-size: .84rem; }
+  /* Gizli paneller aynı hücrede yığılıp en uzun panelin boyunu dayatıyordu */
+  .num-sec .sv-tp[hidden] { display: none; }
+  .num-sec .sv-tp { gap: 12px; align-content: start; }
+  .num-sec .sv-tc { gap: 8px; padding: 18px; }
+  .num-sec .sv-tc > [data-icon] svg { width: 24px; height: 24px; }
+  .num-sec .sv-num { font-size: 2.2rem; }
+  .num-sec .sv-tc h3 { font-size: 1.05rem; line-height: 1.35; }
+  .num-sec .sv-tc p { font-size: .92rem; line-height: 1.5; }
+  .num-sec .demo-note { margin-top: 20px; }
+}
+
+/* ===== 6. Entegrasyon bandı: küçük kutular, duraklat düğmesi bandın altında ===== */
+@media (max-width: 760px) {
+  .irows { gap: 10px; padding-bottom: 68px; }
+  .irow { gap: 10px; }
+  .it { width: 96px; height: 56px; border-radius: 14px; font-size: .9rem; }
+  .irows > .motion-btn { right: 50%; bottom: 10px; transform: translateX(50%); }
+}

@@ -1904,3 +1904,21 @@ html.show--consent .sticky { display: none; }
 @media (max-width: 400px) { .sv-logos-w { gap: 10px; } .sv-logos-w > .sv-logos { gap: 8px 10px; } .sv-logos-w .sv-logos img { max-width: 48px; } }
 .sv-logos-w > .motion-btn { position: static; flex: none; width: 32px; height: 32px; color: rgba(239,235,228,.85); background: rgba(255,255,255,.06); border-color: rgba(239,235,228,.22); }
 @media (max-width: 340px) { .sv-logos-w > .sv-logos { gap: 8px 6px; } .sv-logos-w .sv-logos img { max-width: 44px; } }
+
+/* Tek platform · Teşvik kartı: kart içinde kayan teşvik listesi (2026-11-11) */
+.pcard .shot.tv { height: 250px; padding: 16px 14px 0; align-content: stretch; grid-template-rows: auto minmax(0, 1fr); gap: 10px; }
+.tv-head { display: flex; flex-direction: column; gap: 2px; padding: 2px 76px 0 4px; color: var(--ink); }
+.tv-head b { font-size: .92rem; font-weight: 600; }
+.tv-head small { font-size: .74rem; color: #6b5f63; }
+.tv-win { min-height: 0; overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 86%, transparent); }
+.tv-track { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 6px 2px; animation: tvUp 26s linear infinite; }
+.tv-track > .ui-row { min-width: 0; }
+.pcard:hover .tv-track { animation-play-state: paused; }
+.pcard:hover .shot.tv .ui-row { transform: none; }
+@keyframes tvUp { to { transform: translateY(calc(-50% + 2px)); } }
+@media (max-width: 560px) { .pcard .shot.tv { height: 230px; padding: 12px 10px 0; } .tv-head { padding-right: 56px; } }
+@media (prefers-reduced-motion: reduce) { .tv-track { animation: none; } .tv-win { overflow-y: auto; } }
+
+/* Ana sayfa hero başlığı vurgusu (2026-11-11): yalnız index.html (data-page="home"); ~%13-14 büyük, orta kalınlık */
+[data-page="home"] .hero #h1 { font-size: clamp(2.25rem, 3.85vw, 3.3rem); font-weight: 500; text-wrap: balance; }
+@media (max-width: 560px) { [data-page="home"] .hero #h1 { font-size: clamp(1.9rem, 8.6vw, 2.4rem); } }

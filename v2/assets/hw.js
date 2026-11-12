@@ -11,7 +11,7 @@
   var hw = document.getElementById("hw");
   if (!hw) { root.classList.remove("hw-wait"); return; }
   var ANIM = root.classList.contains("anim");
-  var WORDS = ["teşvikleriniz eksiksiz.", "bildirimleriniz zamanında.", "raporlarınız onaylı."];
+  var WORDS = ["teşvikleriniz eksiksiz.", "bildirimleriniz zamanında.", "sağlık raporlarınız onaylı."];
   var FONT_URL = hw.getAttribute("data-font") || "fonts/Aspekta-500.otf";
   function giveUp() { root.classList.remove("hw-wait"); hw.classList.remove("is-drawn"); hw.classList.add("hw-off"); }
   var LIB = "https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js";

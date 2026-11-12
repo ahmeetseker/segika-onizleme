@@ -502,3 +502,31 @@ html.menu-lock, html.menu-lock body { overflow: hidden; }
 /* Logo kartları eşit genişlikte ızgara: mobilde 2, genişledikçe kendiliğinden artar */
 .int-row ul:has(> .int-logo) { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); }
 .int-row li.int-logo, .int-row li.int-txt { min-width: 0; }
+
+/* ---------- Footer büyük "Segika" yazısı dekoratif: üstüne binen hukuki bağlantıların tıklamasını yutmasın ---------- */
+.wordmark { pointer-events: none; }
+
+/* ---------- Hukuki belgeler modalı (v2.js: legal-dlg) ---------- */
+html.legal-lock, html.legal-lock body { overflow: hidden; }
+.legal-dlg { padding: 0; border: 0; background: transparent; color: var(--slate); width: min(820px, calc(100vw - 24px)); max-width: none;
+  max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); overflow: visible; }
+.legal-dlg::backdrop { background: rgba(7, 32, 15, .55); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.legal-dlg-box { display: flex; flex-direction: column; max-height: inherit; background: var(--page); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(7, 32, 15, .45); }
+.legal-dlg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 22px var(--pad) 16px; background: var(--paper);
+  border-bottom: 1px solid var(--line); }
+.legal-dlg-t { margin: 0; font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); }
+.legal-dlg-meta { margin: 8px 0 0; }
+.legal-dlg-meta:empty { display: none; }
+.legal-dlg-x { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--slate); color: #fff; cursor: pointer; }
+.legal-dlg-x svg { width: 14px; height: 14px; }
+.legal-dlg-x:hover { background: var(--green-soft); color: #12231b; }
+.legal-dlg-x:focus-visible, .legal-dlg-body:focus-visible, .legal-dlg-page:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 2px; }
+.legal-dlg-body { flex: 1 1 auto; min-height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 20px var(--pad) 28px; }
+.legal-dlg-prose { max-width: none; font-size: 16px; }
+.legal-dlg-wait, .legal-dlg-err { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.legal-dlg-err a, .legal-dlg-page { color: var(--green-dark); text-decoration: underline; text-underline-offset: 3px; }
+.legal-dlg-foot { padding: 12px var(--pad); border-top: 1px solid var(--line); background: var(--paper); font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; }
+.legal-dlg-foot .legal-dlg-page { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 559px) { .legal-dlg { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); } .legal-dlg-box { border-radius: 16px; } }
+.legal-dlg-body { overflow-wrap: anywhere; } /* uzun URL/metin dar ekranda sarılır, yatay taşma olmaz */

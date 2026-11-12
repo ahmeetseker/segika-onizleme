@@ -343,7 +343,10 @@
     start();
   }
   $$(".hero-gl, .ftr-gl, .silk-gl").forEach(silk);
-  /* ---------- Talep formu (.f-form): istemci doğrulaması + başarı kutusu (backend yok) ---------- */
+  /* ---------- Talep formu (.f-form): istemci doğrulaması + e-posta taslağı (backend yok) ----------
+     Sunucuya hiçbir şey gönderilmez. Geçerli formda alanlar mailto: taslağına kodlanır ve kullanıcının
+     e-posta uygulaması açılır; gönderimi kullanıcı tamamlar. Bu yüzden "alındı/gönderildi" denmez.
+     Kullanıcı verisi yalnız encodeURIComponent ile URL'ye girer; innerHTML kullanılmaz. Alanlar silinmez. */
   (function () {
     var form = document.querySelector(".f-form"), done = document.getElementById("f-done");
     if (!form || !done) return;
@@ -369,7 +372,33 @@
       fields.forEach(mark);
       var bad = fields.filter(function (f) { return !f.checkValidity(); });
       if (bad.length) { bad[0].focus(); return; }
+      var href = draft();
+      if (again) again.href = href;
       form.hidden = true; done.hidden = false; done.focus();
+      /* İptal edilebilir olay: testler taslağı gerçek e-posta uygulaması açılmadan doğrulayabilir */
+      if (form.dispatchEvent(new CustomEvent("segika:maildraft", { detail: href, cancelable: true }))) window.location.href = href; /* e-posta uygulamasını açar; sayfa yerinde kalır */
+    });
+    var to = "sgk@turksab.com", again = document.getElementById("f-done-mail"), edit = document.getElementById("f-edit");
+    function val(name) { var f = form.elements[name]; return f ? String(f.value).replace(/[\r\n]+/g, " ").trim() : ""; }
+    function draft() {
+      var body = [
+        "Merhaba,",
+        "",
+        "Segika hakkında bilgi ve demo talep ediyorum.",
+        "",
+        "Ad soyad: " + val("ad"),
+        "Telefon: " + val("tel"),
+        "E-posta: " + val("ep"),
+        "İlgilendiğim hizmet: " + val("ilg"),
+        "",
+        "KVKK aydınlatma metnini okudum."
+      ].join("\r\n");
+      return "mailto:" + to + "?subject=" + encodeURIComponent("Segika bilgi ve demo talebi") + "&body=" + encodeURIComponent(body);
+    }
+    if (edit) edit.addEventListener("click", function (e) {
+      e.preventDefault();
+      done.hidden = true; form.hidden = false;
+      var first = form.elements.ad; if (first) first.focus();
     });
   })();
 
@@ -412,5 +441,119 @@
     function sync() { wrap.classList.toggle("cmp-m", mq.matches); }
     sync();
     if (mq.addEventListener) mq.addEventListener("change", sync); else mq.addListener(sync);
+  })();
+
+  /* ---------- Hukuki belgeler (Gizlilik, Kullanım Koşulları, Çerez) sayfadan ayrılmadan modal içinde ----------
+     Tek içerik kaynağı yerel sayfalardır: aynı kökenden fetch edilir, DOMParser ile ayrıştırılır (script çalışmaz),
+     yalnız h1 + tarih satırı + article.prose alınır; script/iframe/form/on* öznitelikleri atılır. Bağlantıların
+     href'i gerçek sayfaya işaret etmeye devam eder: JS yoksa, yeni sekme tercihi (Ctrl/Cmd/orta tık) veya
+     yükleme hatasında normal sayfa açılır. Peş peşe seçimde eski yanıt yenisinin üstüne yazmaz (istek sayacı). */
+  (function () {
+    if (!window.fetch || !window.DOMParser || typeof HTMLDialogElement !== "function") return;
+    var DOCS = ["gizlilik.html", "kullanim-kosullari.html", "cerez-politikasi.html"];
+    /* Yükleme sürerken de pencerenin erişilebilir adı boş kalmasın (asıl başlık yüklenince sayfanın h1'i ile değiştirilir) */
+    var NAMES = ["Gizlilik ve KVKK", "Kullanım Koşulları", "Çerez Politikası"];
+    var paths = DOCS.map(function (d) { return new URL(d, location.href).pathname; });
+    var dlg = null, title, meta, body, pageLink, opener = null, req = 0, ctrl = null;
+    function docOf(a) {
+      if (!a || !a.href || a.target && a.target !== "_self" || a.hasAttribute("download")) return -1;
+      if (a.getAttribute("aria-current") === "page" || a.classList.contains("legal-dlg-page")) return -1;
+      var u; try { u = new URL(a.href); } catch (err) { return -1; }
+      if (u.origin !== location.origin || u.hash) return -1;
+      return paths.indexOf(u.pathname);
+    }
+    function build() {
+      dlg = document.createElement("dialog");
+      dlg.className = "legal-dlg";
+      dlg.setAttribute("aria-labelledby", "legal-dlg-t");
+      dlg.innerHTML = '<div class="legal-dlg-box"><div class="legal-dlg-head"><div><h2 class="legal-dlg-t" id="legal-dlg-t"></h2><p class="legal-meta legal-dlg-meta"></p></div>' +
+        '<button class="legal-dlg-x" type="button" aria-label="Kapat"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>' +
+        '<div class="legal-dlg-body" tabindex="0"></div>' +
+        '<div class="legal-dlg-foot"><a class="legal-dlg-page" href="#">Belgeyi tam sayfada açın</a></div></div>';
+      document.body.appendChild(dlg);
+      title = dlg.querySelector(".legal-dlg-t"); meta = dlg.querySelector(".legal-dlg-meta");
+      body = dlg.querySelector(".legal-dlg-body"); pageLink = dlg.querySelector(".legal-dlg-page");
+      dlg.querySelector(".legal-dlg-x").addEventListener("click", function () { dlg.close(); });
+      /* Arka alan (dialog'un kendisi) tıklaması kapatır; kutu içindeki tıklamalar kapatmaz */
+      dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+      dlg.addEventListener("close", function () {
+        req++; if (ctrl) ctrl.abort();
+        root.classList.remove("legal-lock");
+        var o = opener; opener = null;
+        if (o && document.contains(o)) o.focus({ preventScroll: true });
+      });
+      /* Odak tuzağı: Tab/Shift+Tab açık pencerenin içinde döner */
+      dlg.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab") return;
+        var f = Array.prototype.filter.call(dlg.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'), function (el) { return el.offsetParent !== null || el === body; });
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
+    }
+    function clean(node) {
+      Array.prototype.forEach.call(node.querySelectorAll("script, style, iframe, object, embed, form, link, meta, template"), function (el) { el.remove(); });
+      Array.prototype.forEach.call(node.querySelectorAll("*"), function (el) {
+        Array.prototype.slice.call(el.attributes).forEach(function (at) {
+          var n = at.name.toLowerCase(), v = at.value.trim().toLowerCase();
+          if (n.indexOf("on") === 0 || n === "style" || n === "id" || ((n === "href" || n === "src") && v.indexOf("javascript:") === 0)) el.removeAttribute(at.name);
+        });
+      });
+      return node;
+    }
+    function fail(url) {
+      body.textContent = "";
+      var p = document.createElement("p"); p.className = "legal-dlg-err"; p.setAttribute("role", "alert");
+      p.textContent = "Belge şu anda yüklenemedi. ";
+      var a = document.createElement("a"); a.href = url; a.className = "legal-dlg-page"; a.textContent = "Belgeyi tam sayfada açın";
+      p.appendChild(a); body.appendChild(p);
+    }
+    function load(i) {
+      var url = DOCS[i], my = ++req;
+      if (ctrl) ctrl.abort();
+      ctrl = typeof AbortController === "function" ? new AbortController() : null;
+      pageLink.href = url;
+      title.textContent = NAMES[i]; meta.textContent = "";
+      body.textContent = ""; body.setAttribute("aria-busy", "true");
+      var w = document.createElement("p"); w.className = "legal-dlg-wait"; w.textContent = "Belge yükleniyor…"; body.appendChild(w);
+      body.scrollTop = 0;
+      fetch(url, { credentials: "same-origin", cache: "no-cache", signal: ctrl ? ctrl.signal : undefined }) /* metin güncellenince eski kopya gösterilmesin */.then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      }).then(function (html) {
+        if (my !== req) return;
+        var src = new DOMParser().parseFromString(html, "text/html");
+        var art = src.querySelector("article.prose"), h1 = src.querySelector("main h1");
+        if (!art || !h1) throw new Error("içerik bulunamadı");
+        title.textContent = h1.textContent.trim();
+        var m = src.querySelector(".phero .legal-meta, main .legal-meta"); meta.textContent = m ? m.textContent.trim() : "";
+        body.textContent = "";
+        var copy = clean(document.importNode(art, true)); copy.classList.add("legal-dlg-prose");
+        body.appendChild(copy);
+        body.removeAttribute("aria-busy"); body.scrollTop = 0;
+      }).catch(function (err) {
+        if (my !== req || (err && err.name === "AbortError")) return;
+        body.removeAttribute("aria-busy"); fail(url);
+      });
+    }
+    function open(i, from) {
+      if (!dlg) build();
+      title.textContent = NAMES[i]; /* showModal ve odaktan önce ad hazır */
+      if (!dlg.open) {
+        opener = from;
+        root.classList.add("legal-lock");
+        dlg.showModal();
+      }
+      load(i);
+      dlg.querySelector(".legal-dlg-x").focus({ preventScroll: true });
+    }
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest ? e.target.closest("a[href]") : null;
+      var i = docOf(a); if (i < 0) return;
+      e.preventDefault();
+      open(i, dlg && dlg.open ? opener : a);
+    });
   })();
 })();

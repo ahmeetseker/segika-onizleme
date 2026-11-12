@@ -571,6 +571,8 @@ html.legal-lock, html.legal-lock body { overflow: hidden; }
   .emp-ctl { width: 100%; justify-content: space-between; }
   .emp-val { min-width: 0; flex: 1 1 auto; font-size: 14px; }
   .emp-val b { min-width: 0; font-size: 24px; }
+  .emp-val { display: flex; flex-direction: column; align-items: center; white-space: normal; line-height: 1.15; }
+  .emp-unit { font-size: 12.5px; }
   .emp-rail { flex-basis: 100%; }
   .emp-num { font-size: 11px; }
 }

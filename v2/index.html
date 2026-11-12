@@ -36,9 +36,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Poppins:wght@700&display=swap">
-<link rel="stylesheet" href="assets/v2.css?v=20261111f">
+<link rel="stylesheet" href="assets/v2.css?v=20261112a">
 <link rel="stylesheet" href="assets/home.css">
 <script src="assets/v2.js?v=20261111f" defer></script>
+<script src="assets/vendor/number-flow/number-flow.min.js?v=0.6.2" defer></script>
+<script src="assets/emp.js?v=20261112a" defer></script>
 <script src="assets/hw.js?v=20261111c" defer></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -182,30 +184,31 @@
         <div><h2 class="reveal" id="fy-baslik">Fiyatlar</h2><p>Teşvik hesaplama ve SGK otomasyonu için ihtiyacınıza uygun paketi seçin.</p></div>
         <a class="ib-btn" href="fiyatlar.html#karsilastir"><span class="ib-label">Paketleri karşılaştırın<span class="ib-corner" aria-hidden="true"><svg viewBox="0 0 18 48" preserveAspectRatio="none"><path d="M0 0h5.63c7.808 0 13.536 7.337 11.642 14.91l-6.09 24.359A11.527 11.527 0 0 1 0 48V0Z"/></svg></span></span><span class="ib-icon" aria-hidden="true"><svg viewBox="0 0 51 48" preserveAspectRatio="none"><path d="M6.728 9.09A12 12 0 0 1 18.369 0H39c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12.37C4.561 48-1.167 40.663.727 33.09l6-24Z"/></svg></span></a>
       </div>
+      <div class="emp" data-emp hidden><div class="emp-ctl" role="group" aria-label="Çalışan sayısı"><button type="button" class="emp-btn" data-emp-step="-1" aria-label="Çalışan sayısını azaltın">−</button><span class="emp-val"><b data-emp-n>25</b> çalışana kadar</span><button type="button" class="emp-btn" data-emp-step="1" aria-label="Çalışan sayısını artırın">+</button></div><div class="emp-rail" role="radiogroup" aria-label="Çalışan kademesi"></div><p class="emp-note">500’den fazla çalışan için <a href="fiyatlar.html#iletisim">özel teklif alın</a>.</p></div>
       <div class="cards cards-4">
         <article class="pcard slate rv" style="--i:0">
           <span class="pbg" aria-hidden="true"></span>
-          <div class="pmeta"><span class="tag">Otomasyon</span><span class="mono">25 çalışan · aylık</span></div>
+          <div class="pmeta"><span class="tag">Otomasyon</span><span class="mono" data-emp-per data-tpl="{n} çalışan · aylık">25 çalışan · aylık</span></div>
           <h3><a class="pcard-link" href="fiyatlar.html"><span class="ttl">SGK Otomasyon</span></a></h3>
-          <p class="price">1.600 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="o" data-roll>1.600</span> TL<small>/ ay</small></p>
           <p>Sağlık raporu onayını, KBS ve İŞKUR süreçlerini otomatikleştirin; SGK ve İK araçlarını tek panelden kullanın.</p>
           <span class="pfoot" aria-hidden="true">Paketi inceleyin</span>
           <span class="pbtn" aria-hidden="true"><svg viewBox="0 0 87 90"><path d="M35.43 45.104 23.71 81.57A12.146 12.146 0 0 1 12.145 90C5.438 90 0 84.562 0 77.854V16C0 7.163 7.163 0 16 0h55c8.837 0 16 7.163 16 16v2c0 8.837-7.163 16-16 16H50.663a16 16 0 0 0-15.232 11.104Z"/></svg><span class="pico"><svg viewBox="0 0 51 48" preserveAspectRatio="none"><path d="M6.728 9.09A12 12 0 0 1 18.369 0H39c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12.37C4.561 48-1.167 40.663.727 33.09l6-24Z"/></svg></span></span>
         </article>
         <article class="pcard rv" style="--i:1">
           <span class="pbg" aria-hidden="true"></span>
-          <div class="pmeta"><span class="tag">Teşvik</span><span class="mono">25 çalışan · aylık</span></div>
+          <div class="pmeta"><span class="tag">Teşvik</span><span class="mono" data-emp-per data-tpl="{n} çalışan · aylık">25 çalışan · aylık</span></div>
           <h3><a class="pcard-link" href="fiyatlar.html"><span class="ttl">SGK Teşvik</span></a></h3>
-          <p class="price">1.850 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="t" data-roll>1.850</span> TL<small>/ ay</small></p>
           <p>Yürürlükteki tüm teşvik kodlarını çalışan bazında hesaplayın; teşvik raporlarını tek panelden alın.</p>
           <span class="pfoot" aria-hidden="true">Paketi inceleyin</span>
           <span class="pbtn" aria-hidden="true"><svg viewBox="0 0 87 90"><path d="M35.43 45.104 23.71 81.57A12.146 12.146 0 0 1 12.145 90C5.438 90 0 84.562 0 77.854V16C0 7.163 7.163 0 16 0h55c8.837 0 16 7.163 16 16v2c0 8.837-7.163 16-16 16H50.663a16 16 0 0 0-15.232 11.104Z"/></svg><span class="pico"><svg viewBox="0 0 51 48" preserveAspectRatio="none"><path d="M6.728 9.09A12 12 0 0 1 18.369 0H39c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12.37C4.561 48-1.167 40.663.727 33.09l6-24Z"/></svg></span></span>
         </article>
         <article class="pcard dark rv" style="--i:2">
           <span class="pbg" aria-hidden="true"></span>
-          <div class="pmeta"><span class="tag">En kapsamlı</span><span class="mono">25 çalışan · aylık</span></div>
+          <div class="pmeta"><span class="tag">En kapsamlı</span><span class="mono" data-emp-per data-tpl="{n} çalışan · aylık">25 çalışan · aylık</span></div>
           <h3><a class="pcard-link" href="fiyatlar.html"><span class="ttl">SGK Teşvik ve Otomasyon</span></a></h3>
-          <p class="price">2.600 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="to" data-roll>2.600</span> TL<small>/ ay</small></p>
           <p>Teşvik hesaplama ve SGK otomasyonu bir arada; paket kapsamındaki bordro entegrasyonlarıyla.</p>
           <span class="pfoot" aria-hidden="true">Paketi inceleyin</span>
           <span class="pbtn" aria-hidden="true"><svg viewBox="0 0 87 90"><path d="M35.43 45.104 23.71 81.57A12.146 12.146 0 0 1 12.145 90C5.438 90 0 84.562 0 77.854V16C0 7.163 7.163 0 16 0h55c8.837 0 16 7.163 16 16v2c0 8.837-7.163 16-16 16H50.663a16 16 0 0 0-15.232 11.104Z"/></svg><span class="pico"><svg viewBox="0 0 51 48" preserveAspectRatio="none"><path d="M6.728 9.09A12 12 0 0 1 18.369 0H39c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12.37C4.561 48-1.167 40.663.727 33.09l6-24Z"/></svg></span></span>

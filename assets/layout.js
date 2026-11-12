@@ -548,7 +548,7 @@
       seg.addEventListener("scroll", fade, { passive: true });
       requestAnimationFrame(() => { const a = bs.find((x) => x.getAttribute("aria-pressed") === "true"); if (a) reveal(a, false); fade(); });
       bs.forEach((b) => b.addEventListener("click", () => reveal(b, true)));
-      bs.forEach((b) => b.addEventListener("click", () => { const cur = grid.children[Number(grid.dataset.sel)]; const from = priceOf(cur && cur.querySelector(".sv-pv")); bs.forEach((x) => x.setAttribute("aria-pressed", String(x === b))); grid.dataset.sel = b.dataset.i; const el = grid.children[Number(b.dataset.i)]; rollPrice(el && el.querySelector(".sv-pv"), from, " TL"); }));
+      bs.forEach((b) => b.addEventListener("click", () => { const cur = grid.children[Number(grid.dataset.sel)]; const pvOf = (c) => c && (c.querySelector(".sv-pv [data-tier]") || c.querySelector(".sv-pv")); const from = priceOf(pvOf(cur)); bs.forEach((x) => x.setAttribute("aria-pressed", String(x === b))); grid.dataset.sel = b.dataset.i; const el = grid.children[Number(b.dataset.i)]; const pv = pvOf(el); rollPrice(pv, from, pv && pv.hasAttribute("data-tier") ? "" : " TL"); }));
     });
     // Paket filtresi
     document.querySelectorAll(".sv-filter").forEach((f) => {

@@ -169,11 +169,18 @@ img, svg { max-width: 100%; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 12px 12px; }
   .chips a { display: inline-flex; align-items: center; min-height: 36px; font-size: 13.5px; text-decoration: none; color: var(--ink); padding: 0 12px; border-radius: 8px; background: var(--hover); transition: background-color .4s var(--ease); }
   .chips a:hover { background: #e2efe6; }
-  .dd-card { border-radius: 12px; background: var(--forest); color: #fff; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
-    position: relative; overflow: hidden; isolation: isolate; text-decoration: none; }
-  .dd-card::after { content: ""; position: absolute; right: -46px; bottom: -56px; width: 150px; height: 150px; border-radius: 50%; background: var(--green); opacity: .9; z-index: -1;
+  .dd-card { border-radius: 14px; color: #fff; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+    position: relative; overflow: hidden; isolation: isolate; text-decoration: none;
+    background: radial-gradient(120% 70% at 100% 100%, rgba(44,188,99,.42) 0%, rgba(44,188,99,0) 60%),
+                radial-gradient(90% 55% at 0% 0%, rgba(200,245,214,.10) 0%, rgba(200,245,214,0) 70%),
+                linear-gradient(160deg, #0f3a20 0%, var(--forest) 55%, #04170a 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.07); }
+  /* ince ışık halkaları: düz yeşil daire yerine yumuşak, hero ile uyumlu derinlik */
+  .dd-card::after { content: ""; position: absolute; right: -70px; bottom: -90px; width: 230px; height: 230px; border-radius: 50%; z-index: -1; pointer-events: none;
+    background: radial-gradient(circle, rgba(44,188,99,.35) 0%, rgba(44,188,99,0) 62%);
+    box-shadow: 0 0 0 1px rgba(200,245,214,.14), 0 0 0 28px rgba(200,245,214,.035), 0 0 0 29px rgba(200,245,214,.09);
     transition: transform .8s var(--ease); }
-  .dd-card:hover::after { transform: scale(1.18); }
+  .dd-card:hover::after { transform: scale(1.08) translate(-6px, -6px); }
   .dd-card small { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,.7); }
   .dd-card b { font-weight: 400; font-size: 26px; line-height: 1.05; letter-spacing: -0.02em; }
   .dd-card span { font-size: 13.5px; color: rgba(255,255,255,.8); line-height: 1.4; }
@@ -530,3 +537,39 @@ html.legal-lock, html.legal-lock body { overflow: hidden; }
 .legal-dlg-foot .legal-dlg-page { display: inline-flex; align-items: center; min-height: 44px; }
 @media (max-width: 559px) { .legal-dlg { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); } .legal-dlg-box { border-radius: 16px; } }
 .legal-dlg-body { overflow-wrap: anywhere; } /* uzun URL/metin dar ekranda sarılır, yatay taşma olmaz */
+
+/* ---------- Çalışan sayısı seçici (fiyatlar) ---------- */
+.emp { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; padding: 16px 20px 16px 16px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); --emp-p: 0; }
+.emp[hidden] { display: none; }
+.emp-ctl { display: inline-flex; align-items: center; gap: 6px; padding: 6px; border-radius: 99px; background: var(--grey-2); }
+.emp-btn { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--slate); color: #fff; font: 400 24px/1 var(--f-ui); cursor: pointer; display: grid; place-items: center; transition: background-color .2s, transform .16s cubic-bezier(.23,1,.32,1), opacity .2s; }
+.emp-btn:hover:not(:disabled) { background: var(--green-dark); }
+.emp-btn:active:not(:disabled) { transform: scale(.94); }
+.emp-btn:disabled { opacity: .3; cursor: default; }
+.emp-btn:focus-visible, .emp-stop:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 3px; }
+.emp-val { min-width: 12.5ch; text-align: center; font-size: 15px; color: var(--muted); white-space: nowrap; }
+.emp-val b { display: inline-block; min-width: 3ch; font-weight: 500; font-size: 26px; letter-spacing: -.02em; color: var(--ink); vertical-align: -3px; font-variant-numeric: tabular-nums; }
+.emp-rail { position: relative; flex: 1 1 360px; display: grid; grid-template-columns: repeat(7, 1fr); min-width: 0; }
+.emp-rail::before, .emp-rail::after { content: ""; position: absolute; top: 21px; left: calc(100% / 14); height: 2px; border-radius: 2px; pointer-events: none; }
+.emp-rail::before { right: calc(100% / 14); background: var(--line); }
+.emp-rail::after { width: calc((100% - 100% / 7) * var(--emp-p)); background: var(--green); transition: width .5s cubic-bezier(.23,1,.32,1); }
+.emp-stop { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 44px; padding: 14px 0 0; border: 0; background: none; cursor: pointer; font: inherit; }
+.emp-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--paper); border: 2px solid #c9d3cc; transition: border-color .3s, background-color .3s, transform .3s cubic-bezier(.23,1,.32,1); }
+.emp-stop.is-past .emp-dot { border-color: var(--green); background: var(--green); }
+.emp-stop[aria-checked="true"] .emp-dot { border-color: var(--green); background: var(--paper); box-shadow: 0 0 0 5px rgba(44,188,99,.18); transform: scale(1.25); }
+.emp-stop:hover .emp-dot { border-color: var(--green); }
+.emp-num { font-family: var(--f-mono); font-size: 12px; color: var(--muted); transition: color .3s; }
+.emp-stop[aria-checked="true"] .emp-num { color: var(--ink); font-weight: 600; }
+.emp-note { flex: 1 0 100%; margin: 0; font-size: 14px; color: var(--muted); }
+.emp-note a { color: var(--green-dark); font-weight: 500; }
+.emp.is-max .emp-note { color: var(--ink); }
+.emp.is-max .emp-note a { background: var(--green-soft); border-radius: 6px; padding: 1px 6px; text-decoration: none; }
+.emp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.price number-flow { font-variant-numeric: tabular-nums; --number-flow-char-height: 1em; }
+@media (max-width: 640px) {
+  .emp { padding: 14px; gap: 14px; }
+  .emp-ctl { width: 100%; justify-content: space-between; }
+  .emp-rail { flex-basis: 100%; }
+  .emp-num { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .emp-rail::after, .emp-dot { transition: none; } }

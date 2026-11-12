@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="Segika">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:title" content="SGK otomasyon ve teşvik paketleri, fiyatlar | Segika">
-<meta property="og:description" content="Paketler aylık 1.600 TL'den başlar, 25 çalışana kadar geçerlidir. Modülleri paketlere göre karşılaştırın.">
+<meta property="og:description" content="Paketler aylık 1.600 TL'den başlar; fiyat çalışan sayısına göre değişir. Modülleri paketlere göre karşılaştırın.">
 <meta property="og:url" content="https://www.segika.com/v2/fiyatlar.html">
 <meta property="og:image" content="https://www.segika.com/v2/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 <meta property="og:image:alt" content="Segika: SGK işleriniz otomatik, teşvikleriniz eksiksiz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SGK otomasyon ve teşvik paketleri, fiyatlar | Segika">
-<meta name="twitter:description" content="Paketler aylık 1.600 TL'den başlar, 25 çalışana kadar geçerlidir. Modülleri paketlere göre karşılaştırın.">
+<meta name="twitter:description" content="Paketler aylık 1.600 TL'den başlar; fiyat çalışan sayısına göre değişir. Modülleri paketlere göre karşılaştırın.">
 <meta name="twitter:image" content="https://www.segika.com/v2/og-image.jpg">
 <meta name="twitter:image:alt" content="Segika: SGK işleriniz otomatik, teşvikleriniz eksiksiz">
 <script>(function(d){var h=d.documentElement;h.classList.add("js");if(/[?&]static(=|&|$)/.test(location.search)){h.classList.add("static");return}if(window.matchMedia&&matchMedia("(prefers-reduced-motion: no-preference)").matches){h.classList.add("anim","hw-wait");setTimeout(function(){h.classList.remove("hw-wait");if(!h.classList.contains("anim-ready"))h.classList.remove("anim");d.querySelectorAll("[data-split]").forEach(function(e){e.classList.add("is-split")})},2500)}})(document);</script>
@@ -36,9 +36,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Poppins:wght@700&display=swap">
-<link rel="stylesheet" href="assets/v2.css?v=20261111f">
+<link rel="stylesheet" href="assets/v2.css?v=20261112a">
 <link rel="stylesheet" href="assets/fiyatlar.css">
 <script src="assets/v2.js?v=20261111f" defer></script>
+<script src="assets/vendor/number-flow/number-flow.min.js?v=0.6.2" defer></script>
+<script src="assets/emp.js?v=20261112a" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -180,14 +182,16 @@
         <a class="ib-btn" href="#karsilastir"><span class="ib-label">Paketleri karşılaştırın<span class="ib-corner" aria-hidden="true"><svg viewBox="0 0 18 48" preserveAspectRatio="none"><path d="M0 0h5.63c7.808 0 13.536 7.337 11.642 14.91l-6.09 24.359A11.527 11.527 0 0 1 0 48V0Z"/></svg></span></span><span class="ib-icon" aria-hidden="true"><svg viewBox="0 0 51 48" preserveAspectRatio="none"><path d="M6.728 9.09A12 12 0 0 1 18.369 0H39c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12.37C4.561 48-1.167 40.663.727 33.09l6-24Z"/></svg></span></a>
       </div>
 
+      <div class="emp" data-emp hidden><div class="emp-ctl" role="group" aria-label="Çalışan sayısı"><button type="button" class="emp-btn" data-emp-step="-1" aria-label="Çalışan sayısını azaltın">−</button><span class="emp-val"><b data-emp-n>25</b> çalışana kadar</span><button type="button" class="emp-btn" data-emp-step="1" aria-label="Çalışan sayısını artırın">+</button></div><div class="emp-rail" role="radiogroup" aria-label="Çalışan kademesi"></div><p class="emp-note">500’den fazla çalışan için <a href="#iletisim">özel teklif alın</a>.</p></div>
+
       <div class="cards cards-4 pkg-cards">
         <article class="pcard slate rv" style="--i:0">
           <span class="pbg" aria-hidden="true"></span>
           <div class="pmeta">
-            <span class="mono">25 çalışana kadar · aylık</span>
+            <span class="mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
           </div>
           <h3><span class="ttl">SGK Otomasyon</span></h3>
-          <p class="price">1.600 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="o" data-roll>1.600</span> TL<small>/ ay</small></p>
           <p class="pdesc">Sağlık raporu onayını, KBS ve İŞKUR süreçlerini otomatikleştirin; SGK ve İK araçlarını tek panelden kullanın.</p>
           <ul class="plist" aria-label="SGK Otomasyon paketine dahil modüller">
             <li>SGK Yardımcı Araçlar</li>
@@ -204,10 +208,10 @@
         <article class="pcard rv" style="--i:1">
           <span class="pbg" aria-hidden="true"></span>
           <div class="pmeta">
-            <span class="mono">25 çalışana kadar · aylık</span>
+            <span class="mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
           </div>
           <h3><span class="ttl">SGK Teşvik</span></h3>
-          <p class="price">1.850 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="t" data-roll>1.850</span> TL<small>/ ay</small></p>
           <p class="pdesc">Yürürlükteki tüm teşvik kodlarını çalışan bazında hesaplayın; teşvik raporlarını tek panelden alın.</p>
           <ul class="plist" aria-label="SGK Teşvik paketine dahil modüller">
             <li>SGK Teşvik Hesaplama ve Raporları</li>
@@ -220,10 +224,10 @@
           <span class="pbg" aria-hidden="true"></span>
           <div class="pmeta">
             <span class="tag">En kapsamlı</span>
-            <span class="mono">25 çalışana kadar · aylık</span>
+            <span class="mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
           </div>
           <h3><span class="ttl">SGK Teşvik ve Otomasyon</span></h3>
-          <p class="price">2.600 TL<small>/ ay</small></p>
+          <p class="price"><span data-tier="to" data-roll>2.600</span> TL<small>/ ay</small></p>
           <p class="pdesc">Teşvik hesaplama ve SGK otomasyonu bir arada; paket kapsamındaki bordro entegrasyonlarıyla.</p>
           <ul class="plist" aria-label="SGK Teşvik ve Otomasyon paketine dahil modüller">
             <li>SGK Otomasyon ve SGK Teşvik paketlerinin tamamı</li>
@@ -278,21 +282,21 @@
               </th>
               <th scope="col" class="cmp-col-pkg">
                 <span class="cmp-name">SGK Otomasyon</span>
-                <span class="cmp-price">1.600 TL</span>
-                <span class="cmp-term mono">25 çalışana kadar · aylık</span>
+                <span class="cmp-price"><span data-tier="o">1.600</span> TL</span>
+                <span class="cmp-term mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
                 <a class="cmp-cta" href="https://app.segika.com/register" aria-label="SGK Otomasyon paketini ücretsiz deneyin">Ücretsiz deneyin</a>
               </th>
               <th scope="col" class="cmp-col-pkg">
                 <span class="cmp-name">SGK Teşvik</span>
-                <span class="cmp-price">1.850 TL</span>
-                <span class="cmp-term mono">25 çalışana kadar · aylık</span>
+                <span class="cmp-price"><span data-tier="t">1.850</span> TL</span>
+                <span class="cmp-term mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
                 <a class="cmp-cta" href="https://app.segika.com/register" aria-label="SGK Teşvik paketini ücretsiz deneyin">Ücretsiz deneyin</a>
               </th>
               <th scope="col" class="cmp-col-pkg is-feat">
                 <span class="tag cmp-badge">En kapsamlı</span>
                 <span class="cmp-name">SGK Teşvik ve Otomasyon</span>
-                <span class="cmp-price">2.600 TL</span>
-                <span class="cmp-term mono">25 çalışana kadar · aylık</span>
+                <span class="cmp-price"><span data-tier="to">2.600</span> TL</span>
+                <span class="cmp-term mono" data-emp-per data-tpl="{n} çalışana kadar · aylık">25 çalışana kadar · aylık</span>
                 <a class="cmp-cta is-primary" href="https://app.segika.com/register" aria-label="SGK Teşvik ve Otomasyon paketini ücretsiz deneyin">Ücretsiz deneyin</a>
               </th>
             </tr>
@@ -382,11 +386,11 @@
         <div class="notes-list rv">
           <div class="note-row">
             <span class="mono">Çalışan ve dönem</span>
-            <p>Paketler 25 çalışana kadar ve aylıktır. 26–500 çalışan için iletişim formundan teklif isteyin; 500'den fazla çalışan için Kurumsal teklif hazırlanır.</p>
+            <p>Paketler aylıktır; fiyat 25, 50, 100, 200, 300, 400 ve 500 çalışan kademelerine göre değişir. 500'den fazla çalışan için Kurumsal teklif hazırlanır.</p>
           </div>
           <div class="note-row">
-            <span class="mono">KDV ve 25 çalışan üzeri</span>
-            <p>KDV bilgisini ve 25 çalışan üzeri fiyatları teklifinizde netleştirelim; bize ulaşın.</p>
+            <span class="mono">KDV ve 500+ çalışan</span>
+            <p>KDV bilgisini ve 500 çalışan üzeri fiyatları teklifinizde netleştirelim; bize ulaşın.</p>
           </div>
           <div class="note-row">
             <span class="mono">Teşvik kapsamı</span>

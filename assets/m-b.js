@@ -1,5 +1,6 @@
 /* m-b: kanal kartları (.chn / .cx) mobil akordeonu (10 Kasım 2026)
-   <=900 px: tek kart açık; başlık (h3) düğme rolünde, aria-expanded taşır; Enter/Boşluk ile açılıp kapanır.
+   <=900 px: tek kart açık; başlığın (h3) içine gerçek <button class="mb-hd"> konur; aria-expanded/aria-controls düğmede.
+   Başlık anlamı korunur (heading + button). Enter/Boşluk düğmenin yerel tıklamasıyla çalışır.
    Açık/kapalı durumu layout.js ile aynı .active sınıfıdır; masaüstü davranışına dokunulmaz. */
 (() => {
   const chns = document.querySelectorAll(".chn");
@@ -15,9 +16,10 @@
     let down = null;
 
     const head = (c) => c.querySelector("h3");
+    const btnOf = (c) => c.querySelector("h3 > .mb-hd");
     const sync = () => cards.forEach((c) => {
-      const h = head(c);
-      if (h && mq.matches) h.setAttribute("aria-expanded", String(c.classList.contains("active")));
+      const b = btnOf(c);
+      if (b && mq.matches) b.setAttribute("aria-expanded", String(c.classList.contains("active")));
     });
     const setOnly = (card) => {
       syncing = true;
@@ -52,17 +54,22 @@
         [...c.children].forEach((el) => {
           if (el.matches("p, .cx-media")) { if (!el.id) el.id = "mb-cx-" + (++uid); ids.push(el.id); }
         });
-        h.setAttribute("role", "button");
-        h.setAttribute("tabindex", "0");
-        if (ids.length) h.setAttribute("aria-controls", ids.join(" "));
+        let b = btnOf(c);
+        if (!b) {
+          b = document.createElement("button");
+          b.type = "button"; b.className = "mb-hd";
+          while (h.firstChild) b.appendChild(h.firstChild);
+          h.appendChild(b);
+        }
+        if (ids.length) b.setAttribute("aria-controls", ids.join(" "));
       });
       const first = cards.find((c) => c.classList.contains("active")) || cards[0];
       setOnly(first);
     };
     const disable = () => {
       cards.forEach((c) => {
-        const h = head(c);
-        if (h) ["role", "tabindex", "aria-controls", "aria-expanded"].forEach((a) => h.removeAttribute(a));
+        const h = head(c), b = btnOf(c);
+        if (h && b) { while (b.firstChild) h.insertBefore(b.firstChild, b); b.remove(); }
         if (c.dataset.mbTab != null) { c.setAttribute("tabindex", c.dataset.mbTab); delete c.dataset.mbTab; }
       });
       // Masaüstü: her sütunda bir kart açık olsun
@@ -89,17 +96,10 @@
       const c = e.target.closest(".cx");
       if (!c || e.target.closest("a")) return;
       if (!e.target.closest("h3, .i3d")) return; // açık kartın gövdesine dokunmak bir şey değiştirmez
-      const was = down && down.card === c ? down.was : false;
+      // Klavyeyle (Enter/Boşluk) gelen tıklamada pointerdown yoktur: o anki durumu esas al
+      const was = down && down.card === c ? down.was : (e.detail === 0 ? c.classList.contains("active") : false);
       down = null;
       toggle(c, was);
-    });
-    chn.addEventListener("keydown", (e) => {
-      if (!mq.matches || (e.key !== "Enter" && e.key !== " ")) return;
-      const h = e.target.closest("h3[role='button']");
-      if (!h) return;
-      e.preventDefault();
-      const c = h.closest(".cx");
-      toggle(c, c.classList.contains("active"));
     });
 
     const apply = () => (mq.matches ? enable() : disable());

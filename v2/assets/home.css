@@ -49,3 +49,5 @@ html:not(.js) .hw, .hw.hw-off { height: auto; }
 .mq-track span b { font-weight: 400; color: var(--green-dark); }
 @keyframes mq { to { transform: translateX(-50%); } }
 
+/* Boşluk düzeni (2026-11-12): ana sayfa açılış kartında header altı pay 72 → 48 px */
+.hero-in { padding-top: calc(var(--header-h) + 48px); }

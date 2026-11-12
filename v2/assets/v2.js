@@ -376,7 +376,12 @@
       if (again) again.href = href;
       form.hidden = true; done.hidden = false; done.focus();
       /* İptal edilebilir olay: testler taslağı gerçek e-posta uygulaması açılmadan doğrulayabilir */
-      if (form.dispatchEvent(new CustomEvent("segika:maildraft", { detail: href, cancelable: true }))) window.location.href = href; /* e-posta uygulamasını açar; sayfa yerinde kalır */
+      if (form.dispatchEvent(new CustomEvent("segika:maildraft", { detail: href, cancelable: true }))) {
+        window.location.href = href; /* e-posta uygulamasını açar; sayfa yerinde kalır */
+        /* Teşekkür sayfası (Thank You landing): taslak orada "yeniden aç" düğmesine verilir */
+        try { sessionStorage.setItem("segika:draft", href); } catch (err) {}
+        setTimeout(function () { window.location.href = "tesekkurler.html"; }, 1200);
+      }
     });
     var to = "sgk@turksab.com", again = document.getElementById("f-done-mail"), edit = document.getElementById("f-edit");
     function val(name) { var f = form.elements[name]; return f ? String(f.value).replace(/[\r\n]+/g, " ").trim() : ""; }

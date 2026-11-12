@@ -1,5 +1,5 @@
 /* SEGİKA masterpage + kaydırma davranışları.
-   <body data-page="home|landing|services" data-layout="full"> */
+   <body data-page="home|landing|services|trial|tesvik|thanks|about|duyuru" data-layout="full|lp"> */
 (function () {
   const APP = "https://app.segika.com";
   const WA = "https://wa.me/905551427171";
@@ -62,13 +62,33 @@
     ["chart", "SGK Araçları ve Raporlar", "Hizmet listesi, tahakkuk, giriş-çıkış", "hizmetler.html#araclar"],
     ["users", "İK Araçları ve MYK", "Tazminat, maaş, deneme süresi, MYK", "hizmetler.html#ik"],
   ];
+  // Üst koyu şeritte sırayla dönen duyuru / kampanya mesajları (gerçek içerik, bağlantılı)
+  const TICKER = [
+    ["Geriye dönük SGK teşvikleri artık alınamıyor", "duyuru.html", "Duyuru", "alert"],
+    ["Kaçan teşviki çalışan bazında görün", "landing.html", "Ücretsiz analiz", "search"],
+    ["Paketler aylık 1.600 TL'den başlar", "ucretsiz-deneme.html", "Ücretsiz deneme", "zap"],
+  ];
   const consulting = [["İş ve Sosyal Güvenlik Hukuku", "hizmetler.html#hukuk"], ["İnsan Kaynakları Yönetimi", "hizmetler.html#ik-danismanlik"], ["Personel Bulma ve İşe Alım", "hizmetler.html#ise-alim"]];
 
   function header(page, layout) {
     const cur = (p) => (page === p ? ' aria-current="page"' : "");
+    // "Ücretsiz deneyin" düğmeleri deneme açılış sayfasına gider; o sayfadayken doğrudan kayda
+    const TRY = page === "trial" ? APP + "/register" : "ucretsiz-deneme.html";
+    // Landing / kampanya sayfaları (data-layout="lp"): aynı header tasarımında yalnız logo.
+    // Sayfanın tek eylemi açılış alanında durur; header'da tekrarlanmaz. Menü, şerit, mobil menü yok; footer tam kalır.
+    if (layout === "lp") {
+      return `<a class="skip" href="#main">İçeriğe geç</a>
+    <header class="hdr hdr-lp" id="hdr">
+      <div class="hdr-main"><div class="container">
+        ${logo()}
+      </div></div>
+    </header>`;
+    }
     return `<a class="skip" href="#main">İçeriğe geç</a>
     <header class="hdr" id="hdr">
-      <div class="hdr-util"><div class="container"><nav><a href="${APP}/login">Üye Girişi</a><a href="${WA}" rel="noopener">WhatsApp Destek</a></nav></div></div>
+      <div class="hdr-util"><div class="container">
+        <div class="tk" role="region" aria-label="Duyuru ve kampanyalar"><ul class="tk-list">${TICKER.map(([t, h, tag, ic], i) => `<li class="tk-it${i ? "" : " is-on"}"${i ? ' aria-hidden="true" inert' : ""}><a href="${h}"${i ? ' tabindex="-1"' : ""}${h === page + ".html" || (page === "duyuru" && h === "duyuru.html") ? ' aria-current="page"' : ""}><span class="tk-tag">${icon(ic, 13)}${tag}</span><span class="tk-txt">${t}</span><span class="tk-go" aria-hidden="true">${icon("right", 14)}</span></a></li>`).join("")}</ul></div>
+        <nav aria-label="Hesap ve destek"><a href="${APP}/login">${icon("lock", 14)}Üye Girişi</a><a href="${WA}" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Zm0 18.15a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.24 3.69 8.24 8.24 0 4.54-3.7 8.23-8.24 8.23Z"/></svg>WhatsApp Destek</a></nav></div></div>
       <div class="hdr-main"><div class="container">
         ${logo()}
         <nav aria-label="Ana menü" style="flex:1"><ul class="menu">
@@ -77,17 +97,17 @@
             <div class="mega" id="mg1"><div><h5>Program modülleri</h5><ul>${products.map(([i, t, d, h]) => `<li><a href="${h}"><span class="mi">${icon(i, 18)}</span><span><strong>${t}</strong><span>${d}</span></span></a></li>`).join("")}</ul>
               <a class="link" href="hizmetler.html" style="margin:14px 10px 0">Tüm hizmetleri ve fiyatları inceleyin ${icon("up", 14)}</a></div>
               <div style="display:grid;gap:18px;align-content:start"><div><h5>Danışmanlık</h5><ul>${consulting.map(([t, h]) => `<li><a href="${h}"><strong>${t}</strong></a></li>`).join("")}</ul></div>
-              <div class="mega-promo"><h4>Segika'yı ücretsiz deneyin</h4><p>Potansiyel ve hatalı teşvik sorgulamayı kendi verinizle görün.</p><a class="btn btn-o" href="${APP}/register" style="align-self:flex-start;height:40px">Ücretsiz deneyin ${icon("up", 14)}</a></div></div></div></li>
+              <div class="mega-promo"><h4>Segika'yı ücretsiz deneyin</h4><p>Teşvik hesaplama ve SGK otomasyonlarını kendi verinizle görün.</p><a class="btn btn-o" href="${TRY}" style="align-self:flex-start;height:40px">Ücretsiz deneyin ${icon("up", 14)}</a></div></div></div></li>
           <li><a href="hizmetler.html#fiyatlandirma">Fiyatlandırma</a></li>
+          <li><a href="hakkimizda.html"${cur("about")}>Hakkımızda</a></li>
           <li><a href="landing.html"${cur("landing")}>Bilgi Al</a></li>
         </ul></nav>
-        <div class="hdr-cta"><a class="btn hdr-login" href="${APP}/login"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Giriş Yap</a><a class="btn btn-o" href="${APP}/register">Ücretsiz Deneyin ${icon("up", 16)}</a></div>
+        <div class="hdr-cta"><a class="btn hdr-login" href="${APP}/login"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Giriş Yap</a><a class="btn btn-o" href="${TRY}">Ücretsiz Deneyin ${icon("up", 16)}</a></div>
         <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menüyü aç"><span class="bl" aria-hidden="true"></span><span class="bl" aria-hidden="true"></span></button>
       </div></div>
-      <div class="ann"><div class="container"><a href="${APP}/register">Segika'yı ücretsiz deneyin: teşviklerinizi dakikalar içinde eksiksiz ve hatasız hesaplayın ${icon("up", 14)}</a></div></div>
       <div class="mnav" id="mnav"><div class="container">
-        <a href="index.html"${cur("home")}>Ana Sayfa</a><details><summary>Hizmetler ${icon("chev", 18)}</summary><a href="hizmetler.html">Tüm hizmetler</a>${products.map(([, t, , h]) => `<a href="${h}">${t}</a>`).join("")}${consulting.map(([t, h]) => `<a href="${h}">${t}</a>`).join("")}</details><a href="hizmetler.html#fiyatlandirma">Fiyatlandırma</a><a href="landing.html"${cur("landing")}>Bilgi Al</a>
-        <div class="row"><a class="btn btn-w" href="${APP}/login">Üye Girişi</a><a class="btn btn-o" href="${APP}/register">Ücretsiz Deneyin</a></div>
+        <a href="index.html"${cur("home")}>Ana Sayfa</a><details><summary>Hizmetler ${icon("chev", 18)}</summary><a href="hizmetler.html">Tüm hizmetler</a>${products.map(([, t, , h]) => `<a href="${h}">${t}</a>`).join("")}${consulting.map(([t, h]) => `<a href="${h}">${t}</a>`).join("")}</details><a href="hizmetler.html#fiyatlandirma">Fiyatlandırma</a><a href="hakkimizda.html"${cur("about")}>Hakkımızda</a><a href="landing.html"${cur("landing")}>Bilgi Al</a>
+        <div class="row"><a class="btn btn-w" href="${APP}/login">Üye Girişi</a><a class="btn btn-o" href="${TRY}">Ücretsiz Deneyin</a></div>
       </div></div>
     </header>`;
   }
@@ -103,7 +123,7 @@
           <small>Bilgileriniz yalnızca size dönüş yapmak için kullanılır. Ayrıntılar <a href="https://www.segika.com/kurallar/gizlilik-politikasi/" data-modal="gizlilik" style="text-decoration:underline">Gizlilik Politikası</a>'nda.</small></div></div>
       <div class="ftr-cols">
         ${col("Hizmetler", products.map(([, t, , h]) => [t, h]))}
-        ${col("Segika", [["Ana Sayfa", "index.html"], ["Hizmetler", "hizmetler.html"], ["Fiyatlandırma", "hizmetler.html#fiyatlandirma"], ["Bilgi Al", "landing.html"], ["Ücretsiz Deneyin", APP + "/register"], ["Üye Girişi", APP + "/login"]])}
+        ${col("Segika", [["Ana Sayfa", "index.html"], ["Hakkımızda", "hakkimizda.html"], ["Hizmetler", "hizmetler.html"], ["SGK Teşvik Hesaplama", "tesvik.html"], ["Fiyatlandırma", "hizmetler.html#fiyatlandirma"], ["Duyuru", "duyuru.html"], ["Bilgi Al", "landing.html"], ["Ücretsiz Deneyin", "ucretsiz-deneme.html"], ["Üye Girişi", APP + "/login"]])}
       </div>
       <div class="ftr-mark" aria-hidden="true"><svg class="mark-ic" viewBox="-10 -10 220 220" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2403a"/><stop offset="1" stop-color="#f26b3a"/></linearGradient><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="5"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/></filter><mask id="rm"><g filter="url(#goo)" fill="#fff"><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-width="24"/><g class="orb-a"><circle cx="153" cy="47" r="34"/><circle cx="174" cy="100" r="17"/></g><g class="orb-b"><circle cx="153" cy="153" r="30"/></g><g class="orb-c"><circle cx="47" cy="153" r="20"/></g></g></mask></defs><rect x="-10" y="-10" width="220" height="220" fill="url(#rg)" mask="url(#rm)"/></svg><span class="logo mark-word">Segika<i></i></span></div>
       </div>${bot}</footer>`;
@@ -119,9 +139,10 @@
     document.querySelectorAll("[data-icon]").forEach((el) => (el.innerHTML = icon(el.dataset.icon, Number(el.dataset.size) || 22)));
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+
     // Header: kaydırınca küçül, altındaki bölümün rengine uy
     const hdr = document.getElementById("hdr");
-    const isDark = (el) => !!(el && el.closest(".hero, .phero, .dark, .close-cta, .ftr, .sv-hero, .sv-cons, .sv-price, .sv-close"));
+    const isDark = (el) => !!(el && el.closest(".hero, .phero, .dark, .close-cta, .ftr, .sv-hero, .sv-cons, .sv-price, .sv-close, .splash"));
     const onScroll = () => {
       const y = scrollY;
       hdr.classList.toggle("scrolled", y > 40);
@@ -432,6 +453,39 @@
     document.querySelectorAll(".trust-row, .irows").forEach((el) => { el.classList.add("has-motion"); motionBtn(el, el.classList.contains("irows") ? "entegrasyon bandı" : "logo ve rakam bantları", (p) => el.classList.toggle("is-paused", p)); });
     document.querySelectorAll(".stepper[data-auto]").forEach((st) => { st.classList.add("has-motion"); motionBtn(st, "otomatik geçiş", (p) => st.classList.toggle("user-paused", p)); });
 
+    // Üst şerit duyuru döngüsü: ~5 sn'de bir dikey geçiş. Fare üstündeyken, klavye odağı içerideyken,
+    // sekme gizliyken ve Duraklat'a basılınca durur; hareket azaltmada otomatik dönmez (ilk mesaj sabit).
+    // Gizli mesajlar inert + aria-hidden + tabindex -1; aria-live kullanılmaz.
+    document.querySelectorAll(".tk").forEach((tk) => {
+      const its = [...tk.querySelectorAll(".tk-it")];
+      if (its.length < 2) return;
+      const rmq = matchMedia("(prefers-reduced-motion: reduce)");
+      let cur = 0, userPaused = false, hover = false, focus = false;
+      const show = (n) => {
+        const prev = cur; cur = n;
+        its.forEach((it, j) => {
+          const on = j === cur;
+          it.classList.toggle("is-on", on);
+          it.classList.toggle("is-out", j === prev && !on);
+          it.inert = !on;
+          if (on) it.removeAttribute("aria-hidden"); else it.setAttribute("aria-hidden", "true");
+          const a = it.querySelector("a"); if (on) a.removeAttribute("tabindex"); else a.tabIndex = -1;
+        });
+      };
+      const btn = motionBtn(tk, "duyuru ve kampanya mesajları", (p) => { userPaused = p; tk.classList.toggle("is-paused", p); });
+      btn.classList.add("tk-btn");
+      const setRm = () => { btn.hidden = rmq.matches; if (rmq.matches && cur !== 0) show(0); };
+      setRm(); rmq.addEventListener("change", setRm);
+      tk.addEventListener("mouseenter", () => (hover = true));
+      tk.addEventListener("mouseleave", () => (hover = false));
+      tk.addEventListener("focusin", () => (focus = true));
+      tk.addEventListener("focusout", (e) => { if (!tk.contains(e.relatedTarget)) focus = false; });
+      setInterval(() => { if (!userPaused && !hover && !focus && !rmq.matches && !document.hidden && !hdr.classList.contains("scrolled")) show((cur + 1) % its.length); }, 5000);
+    });
+
+    // Sabit WhatsApp düğmesi (tüm kök sayfalar)
+    b.insertAdjacentHTML("beforeend", `<div class="waw" data-waw><div class="waw-panel" id="waw-panel" role="dialog" aria-labelledby="waw-t" hidden><div class="waw-head"><span class="waw-av" aria-hidden="true"><svg class="" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29Z"/></svg></span><div class="waw-hd"><p class="waw-t" id="waw-t">Segika ile iletişim</p><p class="waw-s">SGK teşvik, otomasyon ve danışmanlık</p></div><button class="waw-x" type="button" aria-label="Kapat"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="waw-body"><p class="waw-bubble">Merhaba! Sorunuzu WhatsApp’tan yazın ya da bizi arayın; ekibimiz size yardımcı olsun.</p></div><div class="waw-acts"><a class="waw-go" href="https://wa.me/905551427171?text=Merhaba%2C%20Segika%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." rel="noopener"><svg class="" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29Z"/></svg><span><b>WhatsApp’tan yazın</b><small>(0555) 142 71 71 · Satış</small></span></a><a class="waw-tel" href="tel:+902129099941"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span><b>Telefonla arayın</b><small>(0212) 909 99 41 · Müşteri desteği</small></span></a></div></div><button class="wa-fab" type="button" aria-expanded="false" aria-controls="waw-panel" aria-label="WhatsApp ve telefon ile iletişim"><svg class="waw-ic-wa" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 5.83 2.42 8.17 8.17 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29Z"/></svg><svg class="waw-ic-x" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>`);
+
     // Vaka akordeonu (hover / tık / klavye)
     document.querySelectorAll(".cases").forEach((wrap) => {
       const cs = [...wrap.querySelectorAll(".case")];
@@ -646,7 +700,10 @@
         inp.setAttribute("aria-invalid", String(!ok)); if (!ok && !first) first = inp;
       });
       if (first) return first.focus();
-      const card = f.closest(".fcard"); card.classList.add("done"); card.querySelector(".okbox").focus();
+      // Başarılı gönderim: teşekkür sayfasına geç. Yönlendirme yapılamazsa kart içi onay kutusu gösterilir.
+      try { location.assign(f.dataset.next || "tesekkurler.html"); return; } catch (err) { /* aşağıdaki yedek yol */ }
+      const card = f.closest(".fcard"), ok = card && card.querySelector(".okbox");
+      if (card && ok) { card.classList.add("done"); ok.focus(); }
     }));
 
     // Landing yapışkan CTA

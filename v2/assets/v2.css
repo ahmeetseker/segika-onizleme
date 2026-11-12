@@ -245,8 +245,9 @@ html.menu-lock, html.menu-lock body { overflow: hidden; }
 .lead { margin: 0; max-width: 46ch; font-size: clamp(16px, 1.3vw, 18.5px); line-height: 1.3; color: rgba(31,45,42,.8); }
 
 /* ---------- Hareket: kelime kelime koyulaşma, aşağıdan açılış, satır maskesi ---------- */
-.anim .reveal .wd { opacity: .16; transition: opacity .25s ease-out; }
-.anim .reveal .wd.on { opacity: 1; }
+/* Okunurluk: okunmamış sözcük soluk ama en az 3:1 kontrastlı kalır (eskiden opacity .16 → 1.3:1) */
+.anim .reveal .wd { color: var(--dim); transition: color .25s ease-out; }
+.anim .reveal .wd.on { color: inherit; }
 .anim .rv { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: calc(var(--i, 0) * .1s); }
 .anim .rv.in { opacity: 1; transform: none; }
 /* Satır satır açılış (data-split). JS bölmeden önce görünmez; head betiği 2,5 sn sonra yine de açar */
@@ -577,3 +578,147 @@ html.legal-lock, html.legal-lock body { overflow: hidden; }
   .emp-num { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .emp-rail::after, .emp-dot { transition: none; } }
+
+/* ---------- Landing (ücretsiz teşvik analizi): CTA satırı ve üç adım ---------- */
+.lp-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.lp-steps { list-style: none; margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 24px; }
+.lp-steps li { border-top: 1px solid rgba(31,45,42,.12); padding: 22px 0 28px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.lp-steps .mono { color: #17803f; font-size: 13px; letter-spacing: .04em; } /* 4,9:1 açık zeminde */
+.lp-steps h3 { margin: 0; font-weight: 500; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.lp-steps p { margin: 0; color: var(--muted); }
+@media (min-width: 760px) { .lp-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Üç rakamlı satır (landing; hizmetler.css ile aynı kural) */
+@media (min-width: 1024px) { .stats.stats-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.stats-3 .stat dt { max-width: 22ch; }
+/* Ücretsiz deneme landing: elle / Segika ile karşılaştırma tablosu */
+.lp-vs { margin-top: clamp(24px, 3vw, 40px); overflow-x: auto; }
+.lp-vs:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.lp-vs table { width: 100%; border-collapse: collapse; min-width: 560px; }
+.lp-vs th, .lp-vs td { text-align: left; vertical-align: top; padding: 18px 16px 20px 0; border-top: 1px solid rgba(31,45,42,.12); }
+.lp-vs thead th { font-family: "Roboto Mono", ui-monospace, monospace; font-weight: 400; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border-top: 0; padding-bottom: 12px; }
+.lp-vs thead th:last-child { color: #17803f; }
+.lp-vs tbody th { font-weight: 500; color: var(--ink); width: 22%; }
+.lp-vs tbody td { color: var(--muted); width: 39%; }
+.lp-vs tbody td:last-child { color: var(--ink); }
+@media (max-width: 640px) {
+  .lp-vs { overflow: visible; }
+  .lp-vs table, .lp-vs tbody, .lp-vs tr, .lp-vs th, .lp-vs td { display: block; width: auto; min-width: 0; }
+  .lp-vs thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .lp-vs tr { border-top: 1px solid rgba(31,45,42,.12); padding: 16px 0 18px; }
+  .lp-vs th, .lp-vs td { border: 0; padding: 4px 0; }
+  .lp-vs tbody th, .lp-vs tbody td { width: auto; }
+  .lp-vs tbody td::before { display: block; font-family: "Roboto Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .lp-vs tbody td:nth-of-type(1)::before { content: "Elle"; }
+  .lp-vs tbody td:nth-of-type(2)::before { content: "Segika ile"; color: #17803f; }
+}
+/* Açılır liste (csel.js): .f-field select ile aynı ölçü ve renkler; liste sitenin panel diliyle */
+.cs { position: relative; }
+.cs-native { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; pointer-events: none; }
+.cs-btn { width: 100%; min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 10px 12px 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--page); color: var(--ink); font-family: var(--f-ui); font-size: 16px; line-height: 1.4; text-align: left; cursor: pointer; transition: border-color .3s var(--ease), background-color .3s var(--ease); }
+.cs-v { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-btn.ph .cs-v { color: var(--muted); }
+.cs-chev { flex: none; color: var(--slate); transition: transform .2s var(--ease); }
+.cs.open .cs-chev { transform: rotate(180deg); }
+.cs-btn:focus-visible, .cs.open .cs-btn { outline: none; background: var(--paper); border-color: var(--green-dark); box-shadow: 0 0 0 3px rgba(44,188,99,.18); }
+.cs-btn[aria-invalid="true"] { border-color: var(--slate); background: var(--grey-2); }
+.f-field .cs:has(.cs-btn[aria-invalid="true"]) ~ .f-err, .f-tried .f-field .cs:has(select:invalid) ~ .f-err { display: block; }
+.cs-list { position: absolute; z-index: 30; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none; max-height: 300px; overflow-y: auto; overscroll-behavior: contain; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 40px -18px rgba(7,32,15,.35), 0 2px 6px rgba(7,32,15,.06); transform-origin: top center; animation: cs-in .18s var(--ease); }
+.cs-list[hidden] { display: none; }
+.cs-list li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 9px; font-size: 16px; line-height: 1.35; color: var(--ink); cursor: pointer; }
+.cs-list li .cs-t { flex: 1; min-width: 0; }
+.cs-list li .cs-tick { flex: none; color: #17803f; opacity: 0; }
+.cs-list li.on { background: var(--hover); }
+.cs-list li[aria-selected="true"] { font-weight: 500; }
+.cs-list li[aria-selected="true"] .cs-tick { opacity: 1; }
+@keyframes cs-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-list { animation: none; } .cs-chev { transition: none; } }
+/* Codex-2: seçili uzun metin grid öğesinin otomatik min genişliğini büyütmesin; alanlar kart içinde kalır */
+.form-card, .f-form, .f-field { grid-template-columns: minmax(0, 1fr); }
+.form-card > *, .f-form > *, .f-field > *, .cs { min-width: 0; }
+.cs-btn { min-width: 0; max-width: 100%; }
+/* İkincil buton açık zeminde (sayfa bölümleri, form kartı) koyu yazı; yeni landing sayfalarındaki h3 başlıklar hizmetler stiliyle */
+.sec .ib-link, .form-card .ib-link { color: var(--slate); }
+.sec .ib-link .ib-icon svg path, .form-card .ib-link .ib-icon svg path { fill: rgba(31,45,42,.08); }
+.meth h3 { margin: 0; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.15; letter-spacing: -0.015em; }
+h3.codes-h { margin: 0 0 8px; font-weight: 400; font-size: inherit; }
+
+/* ---------- WhatsApp / iletişim açılır kutusu (wa.js) — yalnız ikonlu yuvarlak düğme + panel ---------- */
+.waw { position: fixed; z-index: 55; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: flex-end; gap: 12px; pointer-events: none; }
+.waw > * { pointer-events: auto; }
+.wa-fab { position: relative; width: 58px; height: 58px; padding: 0; border: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: #fff; background: radial-gradient(120% 120% at 30% 20%, #1aa462 0%, #0b7a45 60%, #08643a 100%); box-shadow: 0 14px 30px -10px rgba(7,40,22,.6), 0 3px 8px rgba(7,40,22,.22), inset 0 1px 0 rgba(255,255,255,.22); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.wa-fab::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid rgba(26,164,98,.35); opacity: 0; transition: opacity .2s; }
+.wa-fab:hover { transform: translateY(-2px); box-shadow: 0 18px 34px -10px rgba(7,40,22,.65), 0 3px 8px rgba(7,40,22,.22), inset 0 1px 0 rgba(255,255,255,.22); }
+.wa-fab:hover::after { opacity: 1; }
+.wa-fab svg { position: absolute; transition: transform .25s var(--ease), opacity .2s var(--ease); }
+.wa-fab .waw-ic-x { opacity: 0; transform: rotate(-90deg) scale(.6); }
+.waw.is-open .wa-fab .waw-ic-wa { opacity: 0; transform: rotate(90deg) scale(.6); }
+.waw.is-open .wa-fab .waw-ic-x { opacity: 1; transform: none; }
+.wa-fab:focus-visible { outline: 3px solid var(--green-soft); outline-offset: 3px; }
+.waw-panel { width: min(340px, calc(100vw - 32px)); background: #fff; color: #17201b; border-radius: 18px; overflow: hidden; box-shadow: 0 24px 60px -18px rgba(10,20,15,.45), 0 4px 14px rgba(10,20,15,.12); border: 1px solid rgba(10,20,15,.08); transform-origin: bottom right; animation: waw-in .22s var(--ease); font-family: inherit; }
+.waw-panel[hidden] { display: none; }
+@keyframes waw-in { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+.waw-head { display: flex; align-items: center; gap: 12px; padding: 16px 14px 16px 16px; color: #fff; background: radial-gradient(140% 140% at 0% 0%, #1aa462 0%, #0b7a45 55%, #075232 100%); }
+.waw-av { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.16); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.waw-hd { flex: 1; min-width: 0; }
+.waw-t { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.25; }
+.waw-s { margin: 2px 0 0; font-size: 13px; line-height: 1.3; color: rgba(255,255,255,.88); }
+.waw-x { flex: none; width: 34px; height: 34px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.14); color: #fff; cursor: pointer; }
+.waw-x:hover { background: rgba(255,255,255,.24); }
+.waw-x:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.waw-body { padding: 16px 16px 6px; background: #f3f5f1; }
+.waw-bubble { margin: 0; position: relative; padding: 12px 14px; border-radius: 4px 14px 14px 14px; background: #fff; font-size: 14.5px; line-height: 1.45; box-shadow: 0 1px 2px rgba(10,20,15,.08); }
+.waw-acts { display: grid; gap: 8px; padding: 12px 12px 14px; background: #f3f5f1; }
+.waw-go, .waw-tel { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; text-decoration: none; transition: background-color .15s, transform .15s; }
+.waw-go span, .waw-tel span { display: grid; gap: 1px; min-width: 0; }
+.waw-go b, .waw-tel b { font-size: 15px; font-weight: 600; line-height: 1.25; }
+.waw-go small, .waw-tel small { font-size: 12.5px; line-height: 1.3; }
+.waw-go { background: #0b7a45; color: #fff; }
+.waw-go small { color: rgba(255,255,255,.9); }
+.waw-go:hover { background: #096a3c; }
+.waw-tel { background: #fff; color: #17201b; box-shadow: inset 0 0 0 1px rgba(10,20,15,.12); }
+.waw-tel small { color: #4d5852; }
+.waw-tel:hover { background: #fbfcfa; box-shadow: inset 0 0 0 1px rgba(10,20,15,.24); }
+.waw-go:focus-visible, .waw-tel:focus-visible { outline: 3px solid var(--green-soft); outline-offset: 2px; }
+.waw-go svg, .waw-tel svg { flex: none; }
+@media (min-width: 768px) { .waw { right: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); } }
+@media (prefers-reduced-motion: reduce) { .waw-panel { animation: none; } .wa-fab, .wa-fab svg { transition: none; } .wa-fab:hover { transform: none; } }
+/* V2: açılıştaki CTA'ları örtmesin diye ilk ekranda gizli; panel açıkken her zaman görünür */
+.waw { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s .3s; }
+.wa-on .waw, .waw.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s 0s; }
+@media (prefers-reduced-motion: reduce) { .waw, .wa-on .waw { transition: none; transform: none; } }
+/* Codex-5: panel ekran yüksekliğini aşmasın (yatay telefon); içerik panel içinde kayar, başlık ve Kapat üstte kalır */
+.waw-panel { max-height: calc(100vh - 58px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); max-height: calc(100svh - 58px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); overflow-y: auto; overscroll-behavior: contain; }
+.waw-head { position: sticky; top: 0; z-index: 1; }
+@media (min-width: 768px) { .waw-panel { max-height: calc(100vh - 58px - 12px - 48px); max-height: calc(100svh - 58px - 12px - 48px); } }
+/* Codex-7: klavyeyle odaklanan öğe sticky başlığın altında kalmasın */
+.waw-panel { scroll-padding-top: 84px; scroll-padding-bottom: 8px; }
+/* Kısa ekran (yatay telefon): panel sıkışık düzen — alt başlık ve karşılama balonu gizlenir, başlık küçülür */
+@media (max-height: 440px) {
+  .waw-head { padding: 10px 10px 10px 14px; gap: 10px; }
+  .waw-av { width: 32px; height: 32px; }
+  .waw-s, .waw-body { display: none; }
+  .waw-acts { padding-top: 10px; }
+  .waw-go, .waw-tel { padding: 9px 12px; }
+  .waw-panel { scroll-padding-top: 62px; }
+}
+/* Hakkımızda iletişim: adres segika.com/iletisim biçiminde satır satır */
+.contact-list address { font-style: normal; }
+/* Codex-8: iletişim kutusu sabit header’ın (z-index 60) üstünde */
+.waw { z-index: 65; }
+/* İkincil buton, ana butonla aynı biçim (etiket + köşe + ok kutusu); koyu zeminde yarı saydam, açık zeminde açık gri */
+.ib-alt { --t-bg: #36554a; --t-c: #fff; --t-bg-h: #fff; --t-c-h: #12231b; --b-bg: #fff; --b-bg-h: var(--green-soft); }
+.sec .ib-alt, .form-card .ib-alt { --t-bg: #e4e9e5; --t-c: var(--slate); --t-bg-h: var(--slate); --t-c-h: #fff; --b-bg: var(--green-soft); --b-bg-h: #e4e9e5; }
+.phero .ib-alt:focus-visible, .hero .ib-alt:focus-visible { outline-color: #fff; }
+
+/* ---------- Boşluk düzeni (2026-11-12): fazla üst ve bölüm boşlukları ----------
+   .phero sabit min-height + içerik alta yaslı olduğu için kısa sayfalarda (hukuki, fiyatlar) header ile
+   başlık arasında 120–256 px boşluk kalıyordu. Kart artık içeriğe göre uzar; üst pay header + 40/64 px. */
+.phero { min-height: 0; }
+.phero-in { justify-content: flex-start; padding: calc(var(--header-h) + 40px) var(--pad) calc(var(--pad) + 16px); }
+@media (min-width: 1024px) {
+  .phero { min-height: 0; }
+  .phero-in { padding: calc(var(--header-h) + 64px) var(--pad) 72px; }
+}
+/* Bölüm başlıkları: üstte daha az pay */
+.hg { padding-top: clamp(36px, 4.5vw, 80px); padding-bottom: clamp(40px, 4.5vw, 80px); }
+.hg > * { padding-top: 24px; }

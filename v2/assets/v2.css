@@ -539,7 +539,7 @@ html.legal-lock, html.legal-lock body { overflow: hidden; }
 .legal-dlg-body { overflow-wrap: anywhere; } /* uzun URL/metin dar ekranda sarılır, yatay taşma olmaz */
 
 /* ---------- Çalışan sayısı seçici (fiyatlar) ---------- */
-.emp { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; padding: 16px 20px 16px 16px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); --emp-p: 0; }
+.emp { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; padding: 16px 20px 16px 16px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); --emp-p: 0; }
 .emp[hidden] { display: none; }
 .emp-ctl { display: inline-flex; align-items: center; gap: 6px; padding: 6px; border-radius: 99px; background: var(--grey-2); }
 .emp-btn { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--slate); color: #fff; font: 400 24px/1 var(--f-ui); cursor: pointer; display: grid; place-items: center; transition: background-color .2s, transform .16s cubic-bezier(.23,1,.32,1), opacity .2s; }
@@ -569,6 +569,8 @@ html.legal-lock, html.legal-lock body { overflow: hidden; }
 @media (max-width: 640px) {
   .emp { padding: 14px; gap: 14px; }
   .emp-ctl { width: 100%; justify-content: space-between; }
+  .emp-val { min-width: 0; flex: 1 1 auto; font-size: 14px; }
+  .emp-val b { min-width: 0; font-size: 24px; }
   .emp-rail { flex-basis: 100%; }
   .emp-num { font-size: 11px; }
 }

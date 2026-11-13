@@ -3,27 +3,27 @@
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#141216"/>
       <stop offset=".45" stop-color="#1d1416"/>
-      <stop offset=".62" stop-color="#4a1c14"/>
-      <stop offset=".7" stop-color="#b8361c"/>
-      <stop offset=".74" stop-color="#ff6126"/>
+      <stop offset=".62" stop-color="#441620"/>
+      <stop offset=".7" stop-color="#ac233e"/>
+      <stop offset=".74" stop-color="#f54253"/>
     </linearGradient>
     <radialGradient id="sun" cx="0.68" cy="0.7" r="0.5">
-      <stop offset="0" stop-color="#ff8a4c" stop-opacity=".95"/>
-      <stop offset=".35" stop-color="#ff6126" stop-opacity=".45"/>
-      <stop offset="1" stop-color="#ff6126" stop-opacity="0"/>
+      <stop offset="0" stop-color="#f76d70" stop-opacity=".95"/>
+      <stop offset=".35" stop-color="#f54253" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#f54253" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7a2a1a"/>
+      <stop offset="0" stop-color="#721e2f"/>
       <stop offset="1" stop-color="#2a1414"/>
     </linearGradient>
     <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3a1816"/>
+      <stop offset="0" stop-color="#31151e"/>
       <stop offset="1" stop-color="#140f12"/>
     </linearGradient>
     <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ff6126"/>
-      <stop offset=".25" stop-color="#c2361f"/>
-      <stop offset=".7" stop-color="#3a1514"/>
+      <stop offset="0" stop-color="#f54253"/>
+      <stop offset=".25" stop-color="#b32646"/>
+      <stop offset=".7" stop-color="#30131d"/>
       <stop offset="1" stop-color="#141216"/>
     </linearGradient>
   </defs>
@@ -32,7 +32,7 @@
   <path d="M0 640 L120 560 L210 600 L330 470 L420 540 L520 430 L610 520 L700 470 L780 540 L900 400 L1010 500 L1090 450 L1190 540 L1290 480 L1440 560 L1440 670 L0 670 Z" fill="url(#m1)" opacity=".9"/>
   <path d="M0 660 L90 610 L190 640 L300 560 L380 610 L470 580 L560 640 L650 600 L760 650 L850 590 L960 650 L1060 600 L1150 640 L1260 590 L1360 630 L1440 610 L1440 670 L0 670 Z" fill="url(#m2)"/>
   <rect y="668" width="1440" height="232" fill="url(#lake)"/>
-  <g stroke="#ffb08a" stroke-linecap="round" opacity=".5">
+  <g stroke="#f99397" stroke-linecap="round" opacity=".5">
     <path d="M760 690 H1180" stroke-width="3"/><path d="M820 708 H1120" stroke-width="2"/><path d="M700 726 H1220" stroke-width="2" opacity=".7"/>
     <path d="M860 748 H1080" stroke-width="2"/><path d="M640 772 H1260" stroke-width="1.5" opacity=".5"/><path d="M900 800 H1050" stroke-width="1.5"/>
     <path d="M200 700 H420" stroke-width="1.5" opacity=".4"/><path d="M120 740 H360" stroke-width="1" opacity=".3"/>

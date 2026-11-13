@@ -36,7 +36,7 @@
 
   /* Logo bloğu */
   .ftr-mark { gap: 14px; padding: 20px 0 24px; }
-  .ftr-mark .mark-ic { width: 60px; }
+  .ftr-mark .mark-ic { width: 88px; margin: -10px -6px; }
   .ftr .ftr-mark .mark-word { font-size: 2.6rem !important; }
 
   /* Alt satır: sosyal, yasal, telif */
@@ -146,7 +146,7 @@
 @media (max-width: 900px) {
   [data-page="landing"] .close-cta { background-color: #18181b; background-size: 100% 100%, cover; background-position: 0 0, 60% 70%; }
   /* Turuncu parıltı alt kenarda kesilip bant gibi görünmesin: merkez yukarıda, kenara varmadan söner */
-  [data-page="landing"] .close-cta::after { inset: auto 0 0; height: 70%; background: radial-gradient(70% 50% at 50% 55%, rgba(255, 97, 38, .14), transparent 72%); }
+  [data-page="landing"] .close-cta::after { inset: auto 0 0; height: 70%; background: radial-gradient(70% 50% at 50% 55%, rgba(245, 66, 83, .14), transparent 72%); }
 }
 @media (max-width: 560px) {
   [data-page="landing"] .close-cta { padding: 64px 0 72px; }
@@ -168,7 +168,7 @@
 /* Kapanış CTA, tüm sayfalarda mobil: gereksiz üst/alt boşluk yok, görsel alanı kaplar */
 @media (max-width: 900px) {
   .close-cta { background-color: #18181b; background-size: 100% 100%, cover; background-position: 0 0, 60% 70%; }
-  .close-cta::after { inset: auto 0 0; height: 70%; background: radial-gradient(70% 50% at 50% 55%, rgba(255, 97, 38, .14), transparent 72%); }
+  .close-cta::after { inset: auto 0 0; height: 70%; background: radial-gradient(70% 50% at 50% 55%, rgba(245, 66, 83, .14), transparent 72%); }
 }
 @media (max-width: 560px) {
   .close-cta { padding: 56px 0 60px; }

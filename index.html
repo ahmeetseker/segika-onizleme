@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<script>try{if(localStorage.getItem("segika-tema")==="acik")document.documentElement.classList.add("theme-light")}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SGK Teşvik ve Otomasyon Yazılımı | Segika</title>
@@ -34,10 +35,11 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.segika.com/#org", "name": "Segika", "alternateName": "Segika SGK Teşvik ve Otomasyon Yazılımı", "url": "https://www.segika.com/", "logo": {"@type": "ImageObject", "url": "https://www.segika.com/assets/icon-512.png", "width": 512, "height": 512}, "email": "sgk@turksab.com", "telephone": "+90-212-909-99-41", "address": {"@type": "PostalAddress", "streetAddress": "İstoç Ticaret Merkezi, Öksüzoğulları Plaza Kat:4 No:41, Mahmutbey", "addressLocality": "Bağcılar", "addressRegion": "İstanbul", "addressCountry": "TR"}, "contactPoint": [{"@type": "ContactPoint", "telephone": "+90-212-909-99-41", "contactType": "customer support", "areaServed": "TR", "availableLanguage": "tr"}, {"@type": "ContactPoint", "telephone": "+90-555-142-71-71", "contactType": "sales", "areaServed": "TR", "availableLanguage": "tr"}], "sameAs": ["https://www.linkedin.com/company/sgktesvik/", "https://www.instagram.com/sgktesvikcom/", "https://www.facebook.com/sgktesvikcom"]}, {"@type": "WebSite", "@id": "https://www.segika.com/#website", "name": "Segika", "alternateName": "Segika SGK Teşvik ve Otomasyon Yazılımı", "url": "https://www.segika.com/", "inLanguage": "tr-TR", "publisher": {"@id": "https://www.segika.com/#org"}}, {"@type": "WebPage", "@id": "https://www.segika.com/#webpage", "url": "https://www.segika.com/", "name": "SGK Teşvik ve Otomasyon Yazılımı | Segika", "isPartOf": {"@id": "https://www.segika.com/#website"}, "about": {"@id": "https://www.segika.com/#app"}, "inLanguage": "tr-TR"}, {"@type": "SoftwareApplication", "@id": "https://www.segika.com/#app", "name": "Segika SGK Teşvik ve Otomasyon Yazılımı", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "SGK teşvik hesaplama, otomatik sağlık raporu (vizite) onayı, otomatik KBS (kimlik) ve İŞKUR bildirimi, iş kazası takibi ve SGK raporlarını sunan web tabanlı yazılım.", "inLanguage": "tr-TR", "publisher": {"@id": "https://www.segika.com/#org"}, "offers": {"@type": "AggregateOffer", "priceCurrency": "TRY", "lowPrice": "1600", "highPrice": "2600", "offerCount": "3", "url": "https://www.segika.com/hizmetler.html#fiyatlandirma"}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Red+Hat+Display:wght@300;400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=20261113v">
+<link rel="stylesheet" href="assets/styles.css?v=20261113bordo2">
 <link rel="stylesheet" href="assets/m-a.css?v=3">
 <link rel="stylesheet" href="assets/m-b.css?v=7">
-<link rel="stylesheet" href="assets/m-c.css?v=9">
+<link rel="stylesheet" href="assets/m-c.css?v=10">
+<link rel="stylesheet" href="assets/light.css?v=7">
 </head>
 <body data-page="home" data-layout="full">
 <div id="header-slot"></div>
@@ -59,7 +61,7 @@
         </svg>
         <div class="node" style="left:2%;top:6%"><b>Otomatik Sağlık Raporu</b><small>SMS beklemeden onay</small></div>
         <div class="node" style="right:2%;top:4%"><b>Otomatik Kimlik Bildirimi</b><small>KBS · Emniyet · Jandarma</small></div>
-        <div class="orb"><svg class="mark-ic orb-ring" viewBox="-10 -10 220 220" aria-hidden="true"><defs><linearGradient id="rg-hero" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2403a"/><stop offset="1" stop-color="#f26b3a"/></linearGradient><filter id="goo-hero"><feGaussianBlur in="SourceGraphic" stdDeviation="5"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/></filter><mask id="rm-hero"><g filter="url(#goo-hero)" fill="#fff"><circle cx="100" cy="100" r="82" fill="none" stroke="#fff" stroke-width="13"/><g class="orb-a"><circle cx="161" cy="39" r="22"/><circle cx="186" cy="100" r="13"/></g><g class="orb-b"><circle cx="161" cy="161" r="20"/></g><g class="orb-c"><circle cx="39" cy="161" r="14"/></g></g></mask></defs><rect x="-10" y="-10" width="220" height="220" fill="url(#rg-hero)" mask="url(#rm-hero)"/></svg><span class="orb-word">Segika<i aria-hidden="true"></i></span></div>
+        <div class="orb"><span class="orb-word">Segika<i aria-hidden="true"></i></span></div>
         <div class="node" style="left:0;top:66%"><b>Otomatik İŞKUR Bildirimi</b><small>İşgücü çizelgesi</small></div>
         <div class="node" style="right:2%;top:62%"><b>SGK Teşvik Hesaplama</b><small>06111 · 05510 · 14857</small><br><span class="pill">Hesaplandı</span></div>
       </div>
@@ -68,7 +70,7 @@
       <div class="trust-row">
         <div class="reel" role="group" aria-label="Entegrasyonlar: Luca, Logo, Mikro, Eta, Zirve, Orca, SAP, Canias, Web API"><div class="reel-track" aria-hidden="true"><span class="rl"><img src="assets/int/luca.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/logo.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/mikro.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/eta.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/zirve.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/orca.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/sap.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/canias.svg" alt="" decoding="async"></span><span class="rl rl-t">Web API</span><span class="rl"><img src="assets/int/luca.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/logo.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/mikro.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/eta.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/zirve.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/orca.png" alt="" decoding="async"></span><span class="rl"><img src="assets/int/sap.svg" alt="" decoding="async"></span><span class="rl"><img src="assets/int/canias.svg" alt="" decoding="async"></span><span class="rl rl-t">Web API</span></div></div>
         <div class="trust-mid fu"><div class="tm-top"><span class="tm-score"><b>1,7 Mn+</b> çalışan / ay</span></div><strong>20.000+ firmanın tercihi</strong><a class="tm-link" href="hizmetler.html#sektorler">Segika'yı kullanan sektörleri inceleyin <span data-icon="up" data-size="14"></span></a></div>
-        <div class="reel reel-badges" role="group" aria-label="Aylık işlem hacmi: ₺360 Mn+ teşvik, 1,7 Mn+ çalışan, 61 Bin+ sicil"><div class="reel-track rev" aria-hidden="true"><span class="bdg2" data-badge="₺360 Mn+|teşvik|#ff5a2b"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#ec4489"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#ff5a2b"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#ec4489"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#ff5a2b"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#ec4489"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#ff5a2b"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#ec4489"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span></div></div>
+        <div class="reel reel-badges" role="group" aria-label="Aylık işlem hacmi: ₺360 Mn+ teşvik, 1,7 Mn+ çalışan, 61 Bin+ sicil"><div class="reel-track rev" aria-hidden="true"><span class="bdg2" data-badge="₺360 Mn+|teşvik|#f53a55"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#d921b0"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#f53a55"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#d921b0"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#f53a55"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#d921b0"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span><span class="bdg2" data-badge="₺360 Mn+|teşvik|#f53a55"></span><span class="bdg2" data-badge="1,7 Mn+|çalışan|#d921b0"></span><span class="bdg2" data-badge="61 Bin+|sicil|#6d5efc"></span></div></div>
       </div>
     </div>
   </section>
@@ -243,7 +245,7 @@
 </main>
 
 <div id="footer-slot"></div>
-<script src="assets/layout.js?v=20261113o"></script>
+<script src="assets/layout.js?v=20261113bordo"></script>
 <script src="assets/wa.js?v=20261112b" defer></script>
 <script src="assets/m-b.js?v=3" defer></script>
 </body>

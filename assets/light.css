@@ -1,0 +1,114 @@
+/* Segika açık mod (Bordo). Ana stillerin ardından yüklenir; yalnız koyu zeminli bölümleri açığa çevirir.
+   Kaynak: artifacts/segika-satis-metinleri-2026-11-12/scripts/light.css, acik_uret.py ile kopyalanır. */
+:root.theme-light {
+  --dark: #fbf9f6;
+  --dark-2: #f6f2ed;
+  --ink-l: #261a28;
+  --soft-l: #5b5560;
+  color-scheme: light;
+}
+
+/* Koyu bölümlerde açık yazı değişkenlerini koyuya çevir */
+.theme-light :is(.hero, .phero, .sv-hero, .splash, .close-cta, .sv-close, .sv-cons, .sv-price, .ftr, .dark,
+  .hdr, .hdr-util, .mega-promo, .plan.feat, .cn-panels, .mf-core, .mp-core, .sv-cc, .dia, .orb) {
+  --cream: var(--ink-l);
+  --muted-d: var(--soft-l);
+  --line-d: rgba(38, 26, 40, .12);
+}
+
+/* Üst şerit ve menü */
+.theme-light .hdr-util { background: #e9e2da; color: var(--ink-l); }
+.theme-light .hdr { color: var(--ink-l); }
+.theme-light .hdr .logo { color: var(--ink-l); }
+.theme-light .hdr.darkbg { background: rgba(239, 235, 228, .86); }
+
+/* Hero ve görselli bölümler: koyu dağ yerine açık (krem) dağ */
+.theme-light :is(.hero, .sv-hero, .phero, .splash, .sv-close) {
+  background-color: #efebe4;
+  background-image: url("scene-mountain.webp");
+  background-position: center 60%;
+  color: var(--soft-l);
+}
+.theme-light .hero::before { background: linear-gradient(90deg, rgba(239, 235, 228, .85) 0%, rgba(239, 235, 228, 0) 55%); }
+.theme-light .sv-hero::before { background: linear-gradient(90deg, rgba(239, 235, 228, .94) 0%, rgba(239, 235, 228, .7) 50%, rgba(239, 235, 228, .2) 100%); }
+.theme-light .phero::before, .theme-light .splash::before { background: linear-gradient(90deg, rgba(239, 235, 228, .95) 0%, rgba(239, 235, 228, .78) 55%, rgba(239, 235, 228, .35) 100%); }
+.theme-light .sv-close::before { background: radial-gradient(ellipse at center, rgba(239, 235, 228, .4), rgba(239, 235, 228, .9)); }
+.theme-light .mega-promo { background: linear-gradient(180deg, rgba(239, 235, 228, .2) 0%, rgba(239, 235, 228, .7) 50%, rgba(239, 235, 228, .95) 100%), #efebe4 url("scene-mountain.webp") center 60%/cover no-repeat; color: var(--ink-l); }
+.theme-light .close-cta { background: #f6f2ed; color: var(--soft-l); }
+.theme-light .close-cta .land { background: url("scene-mountain.webp") center 70%/cover no-repeat; }
+.theme-light .sv-cons { background: linear-gradient(#f6f2ed, #efe6e2); color: var(--soft-l); }
+.theme-light .sv-price { background: #f3ebe7; color: var(--soft-l); }
+.theme-light .sv-cc { background: #fbf9f6; border-color: rgba(38, 26, 40, .08); }
+.theme-light .cn-panels { background: radial-gradient(70% 60% at 100% 0%, rgba(245, 66, 83, .1), transparent 70%), #fbf9f6; }
+.theme-light .plan.feat { background: #fbf9f6; color: var(--soft-l); }
+.theme-light .ftr { background: #e9e2da; color: var(--soft-l); }
+.theme-light .nl form, .theme-light .nl-form input { background: #fbf9f6; color: var(--ink-l); }
+
+/* Hero'daki düğüm kartları ve merkez */
+.theme-light .node { background: rgba(251, 249, 246, .82); border-color: rgba(38, 26, 40, .1); color: var(--soft-l); }
+.theme-light .node b { color: var(--ink-l); }
+.theme-light .orb { background: rgba(251, 249, 246, .85); border-color: rgba(38, 26, 40, .1); }
+.theme-light .orb .orb-word { color: var(--ink-l); }
+.theme-light .mf-core, .theme-light .mp-core { background: linear-gradient(160deg, #fbf9f6, #f1e7e3); color: var(--ink-l); }
+.theme-light .mf-core small { color: var(--soft-l); }
+
+/* Kontrast taramasıyla bulunan sabit açık renkli yazılar */
+.theme-light .tk-txt, .theme-light .hdr-util a, .theme-light .hdr-util nav a { color: var(--ink-l); }
+.theme-light .hero .sub, .theme-light .hero .hproof { color: #4a4350; }
+.theme-light .hero .hproof b { color: var(--ink-l); }
+.theme-light .hero::before { background: linear-gradient(90deg, rgba(239, 235, 228, .96) 0%, rgba(239, 235, 228, .85) 35%, rgba(239, 235, 228, 0) 60%); }
+.theme-light .node small { color: var(--soft-l); }
+.theme-light .node .pill { color: #b0173f; background: rgba(209, 33, 99, .1); }
+.theme-light .rl-t, .theme-light .bdg-svg text { color: var(--ink-l); fill: var(--ink-l); }
+.theme-light .tm-score, .theme-light .tm-link { color: var(--ink-l); }
+.theme-light .nl p, .theme-light .ftr p, .theme-light .ftr small { color: var(--soft-l); }
+.theme-light .nl > p { color: var(--soft-l) !important; }
+.theme-light .crumb li, .theme-light .crumb a { color: var(--soft-l); }
+.theme-light .crumb li[aria-current="page"] { color: var(--ink-l); }
+.theme-light :is(.sv-hero, .phero, .splash) p, .theme-light .sv-hero-txt p { color: #4a4350; }
+.theme-light .ticks li { color: #4a4350; }
+.theme-light :is(.phero, .lp-hero, .splash, .sv-hero) .kick, .theme-light .sv-pc .kick { color: #b0173f; }
+.theme-light .sv-panel { background: rgba(251, 249, 246, .72); border-color: rgba(38, 26, 40, .1); box-shadow: 0 30px 60px -30px rgba(38, 26, 40, .3); }
+.theme-light .sv-panel-h { border-bottom-color: rgba(38, 26, 40, .1); }
+.theme-light .sv-panel-h small { color: var(--soft-l); }
+.theme-light .mf-live { color: #b0173f; }
+/* Danışmanlık sekmeleri */
+.theme-light .cn-tab { background: #fbf9f6; border-color: rgba(38, 26, 40, .08); }
+.theme-light .cn-tab::before { background: conic-gradient(from var(--ang), rgba(38, 26, 40, .06) 0deg, rgba(38, 26, 40, .06) 110deg, #f54253 135deg, rgba(38, 26, 40, .06) 160deg); }
+.theme-light .cn-tab:hover { background: #f6eeea; }
+.theme-light .cn-tab.on { background: #f3e6e4; }
+.theme-light .cn-tab em { color: #b0173f; }
+.theme-light .cn-tab:not(.on) em { color: var(--soft-l); background: rgba(38, 26, 40, .04); border-color: rgba(38, 26, 40, .1); }
+.theme-light .cn-ph { border-bottom-color: rgba(38, 26, 40, .1); }
+.theme-light .cn-ph span { color: var(--soft-l); }
+.theme-light .cn-list li { color: #3b3340; border-bottom-color: rgba(38, 26, 40, .07); }
+.theme-light .cn-list li svg { color: #d12163; }
+/* Fiyat bölümü */
+.theme-light .sv-pc { background: linear-gradient(160deg, rgba(245, 66, 83, .05), rgba(255, 255, 255, .6)), #fbf9f6; }
+.theme-light .sv-pc.feat { background: linear-gradient(160deg, rgba(245, 66, 83, .12), rgba(255, 255, 255, .5)), #fbf9f6; }
+.theme-light .sv-pc::before { background: conic-gradient(from var(--ang), rgba(38, 26, 40, .08) 0deg, rgba(38, 26, 40, .08) 110deg, #f54253 135deg, rgba(38, 26, 40, .08) 160deg); }
+.theme-light .sv-pc small { color: var(--soft-l); }
+.theme-light .sv-pc p { color: #4a4350; }
+.theme-light .emp-num, .theme-light .emp-unit, .theme-light .emp-note { color: var(--soft-l); }
+.theme-light .emp-note a { color: #b0173f; }
+.theme-light .emp-dot { background: #fbf9f6; border-color: rgba(38, 26, 40, .25); }
+.theme-light .sv-glass { color: var(--ink-l); background: rgba(255, 255, 255, .55); box-shadow: 0 0 0 1px rgba(38, 26, 40, .14), 0 6px 18px -10px rgba(38, 26, 40, .35); }
+.theme-light :is(.phero, .lp-hero, .splash, .sv-hero, .dark) .kick { color: #b0173f !important; }
+.theme-light .menu > li > a:hover, .theme-light .menu > li > button:hover, .theme-light .menu a[aria-current], .theme-light .mnav [aria-current="page"] { color: #c0183f; }
+.theme-light :is(.phero, .lp-hero) .hproof b { color: var(--ink-l); }
+.theme-light .dark p, .theme-light .ab-mis p { color: #4a4350; }
+.theme-light .splash-tag { color: #b0173f; }
+.theme-light .splash-sub { color: #4a4350; }
+.theme-light .cn-tab .cn-t small { color: var(--soft-l); }
+/* Çalışan sayısı seçici */
+.theme-light .emp { background: rgba(255, 255, 255, .55); border-color: rgba(38, 26, 40, .08); }
+.theme-light .emp-ctl { background: rgba(38, 26, 40, .06); }
+.theme-light .emp-val { color: var(--soft-l); }
+.theme-light .emp-rail::before { background: rgba(38, 26, 40, .12); }
+/* Hero sağ: kartlar görselden ayrışsın, arka plan sakinleşsin */
+.theme-light .hero { background-image: linear-gradient(rgba(239, 235, 228, .42), rgba(239, 235, 228, .42)), url("scene-mountain.webp"); }
+.theme-light .hero .node { background: #fff; border: 1px solid rgba(209, 33, 99, .16); box-shadow: 0 18px 40px -18px rgba(38, 26, 40, .38), 0 2px 6px -2px rgba(38, 26, 40, .12); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.theme-light .hero .node b { color: var(--ink-l); font-weight: 600; }
+.theme-light .hero .node small { color: #5b5560; }
+.theme-light .hero .orb { background: #fff; border: 1px solid rgba(209, 33, 99, .2); box-shadow: 0 0 0 8px rgba(209, 33, 99, .07), 0 24px 50px -20px rgba(150, 29, 42, .45); }
+.theme-light .dia svg.lines path { stroke: rgba(176, 23, 63, .75); stroke-width: 1.6; filter: none; }

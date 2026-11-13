@@ -15,7 +15,7 @@
 @media (max-width: 760px) {
   .ptabs { position: relative; gap: 8px; margin: 0 -16px 20px; padding: 2px 16px 4px; scroll-padding: 0 16px; -webkit-mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
   .ptab { gap: 6px; padding: 8px 14px; min-height: 40px; border: 1px solid rgba(38, 26, 40, .12); border-radius: 99px; background: rgba(255, 255, 255, .55); font-size: .9rem; white-space: nowrap; }
-  .ptab[aria-selected="true"] { background: #fff; border-color: rgba(255, 97, 38, .55); }
+  .ptab[aria-selected="true"] { background: #fff; border-color: rgba(245, 66, 83, .55); }
   .ptab svg { width: 15px; height: 15px; }
   .rail { gap: 12px; padding: 8px 20px 24px; scroll-padding: 0 20px; }
   .pcard { flex: 0 0 calc(100vw - 40px); max-width: 420px; min-width: 0; padding: 10px; }

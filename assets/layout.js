@@ -45,7 +45,7 @@
     <g clip-path="url(#${id})"><path d="M0 158L100 208L200 158V178L100 228L0 178Z" fill="${band}"/></g>
     <path d="M12 8H188V176L100 226L12 176Z" fill="none" stroke="#141216" stroke-width="7" stroke-linejoin="miter"/>
     <path d="M12 62H188M140 8V62" stroke="#141216" stroke-width="7"/>
-    <rect x="143.5" y="11.5" width="41" height="47" fill="#ff5a2b"/>
+    <rect x="143.5" y="11.5" width="41" height="47" fill="#f53a55"/>
     <text x="164" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="26" fill="#fff">S</text><circle cx="176" cy="42" r="3.6" fill="#fff"/>
     <text x="76" y="31" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="600" font-size="15" letter-spacing="2.4" fill="#141216">SEGİKA</text>
     <text x="76" y="52" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="600" font-size="15" letter-spacing="2.4" fill="#141216">HER AY</text>
@@ -103,6 +103,7 @@
           <li><a href="landing.html"${cur("landing")}>Bilgi Al</a></li>
         </ul></nav>
         <div class="hdr-cta"><a class="btn hdr-login" href="${APP}/login"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Giriş Yap</a><a class="btn btn-o" href="${TRY}">Ücretsiz kayıt olun ${icon("up", 16)}</a></div>
+        <button class="tema-btn" type="button" aria-pressed="false" aria-label="Açık moda geç" title="Açık / koyu mod"><svg class="tm-ay" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="tm-gunes" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
         <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menüyü aç"><span class="bl" aria-hidden="true"></span><span class="bl" aria-hidden="true"></span></button>
       </div></div>
       <div class="mnav" id="mnav"><div class="container">
@@ -125,7 +126,7 @@
         ${col("Hizmetler", products.map(([, t, , h]) => [t, h]))}
         ${col("Segika", [["Ana Sayfa", "index.html"], ["Hakkımızda", "hakkimizda.html"], ["Hizmetler", "hizmetler.html"], ["SGK Teşvik Hesaplama", "tesvik.html"], ["Fiyatlandırma", "hizmetler.html#fiyatlandirma"], ["Duyuru", "duyuru.html"], ["Bilgi Al / Ücretsiz Kayıt", "landing.html"], ["SGK Otomasyon", "ucretsiz-deneme.html"], ["Üye Girişi", APP + "/login"]])}
       </div>
-      <div class="ftr-mark" aria-hidden="true"><svg class="mark-ic" viewBox="-10 -10 220 220" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2403a"/><stop offset="1" stop-color="#f26b3a"/></linearGradient><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="5"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/></filter><mask id="rm"><g filter="url(#goo)" fill="#fff"><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-width="24"/><g class="orb-a"><circle cx="153" cy="47" r="34"/><circle cx="174" cy="100" r="17"/></g><g class="orb-b"><circle cx="153" cy="153" r="30"/></g><g class="orb-c"><circle cx="47" cy="153" r="20"/></g></g></mask></defs><rect x="-10" y="-10" width="220" height="220" fill="url(#rg)" mask="url(#rm)"/></svg><span class="logo mark-word">Segika<i></i></span></div>
+      <div class="ftr-mark" aria-hidden="true" data-plasma-area><span class="mark-ic plasma-ball" aria-hidden="true"></span><span class="logo mark-word">Segika<i></i></span></div>
       </div>${bot}</footer>`;
   }
 
@@ -142,7 +143,7 @@
 
     // Header: kaydırınca küçül, altındaki bölümün rengine uy
     const hdr = document.getElementById("hdr");
-    const isDark = (el) => !!(el && el.closest(".hero, .phero, .dark, .close-cta, .ftr, .sv-hero, .sv-cons, .sv-price, .sv-close, .splash"));
+    const isDark = (el) => !document.documentElement.classList.contains("theme-light") && !!(el && el.closest(".hero, .phero, .dark, .close-cta, .ftr, .sv-hero, .sv-cons, .sv-price, .sv-close, .splash"));
     const onScroll = () => {
       const y = scrollY;
       hdr.classList.toggle("scrolled", y > 40);
@@ -153,12 +154,28 @@
     };
     addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
-    // Footer arka planı: logodaki yumrulu halkanın dev, silik ve hareketsiz kopyası
-    const ftr = document.querySelector(".ftr"), ring = ftr && ftr.querySelector(".mark-ic");
-    if (ring) {
-      const html = ring.outerHTML.replace(/id="(rg|goo|rm)"/g, 'id="$1-bg"').replace(/url\(#(rg|goo|rm)\)/g, "url(#$1-bg)").replace('class="mark-ic"', 'class="ftr-bg"');
-      ftr.insertAdjacentHTML("afterbegin", html);
-      const bg = ftr.querySelector(".ftr-bg rect"); if (bg) bg.setAttribute("fill", "#232326");
+    // Açık / koyu mod düğmesi (Bordo)
+    const temaBtn = document.querySelector(".tema-btn");
+    const temaYaz = () => {
+      const acik = document.documentElement.classList.contains("theme-light");
+      if (temaBtn) { temaBtn.setAttribute("aria-pressed", String(acik)); temaBtn.setAttribute("aria-label", acik ? "Koyu moda geç" : "Açık moda geç"); }
+      const mc = document.querySelector('meta[name="theme-color"]'); if (mc) mc.content = acik ? "#efebe4" : "#18181b";
+    };
+    temaYaz();
+    if (temaBtn) temaBtn.addEventListener("click", () => {
+      const acik = document.documentElement.classList.toggle("theme-light");
+      try { localStorage.setItem("segika-tema", acik ? "acik" : "koyu"); } catch (e) {}
+      temaYaz(); onScroll();
+      if (window.SegikaPlasma && window.SegikaPlasma.yenile) window.SegikaPlasma.yenile();
+    });
+
+
+    // Plazma küre (footer ve Hizmetler veri akışı): bağımlılıksız canvas betiği gerektiğinde yüklenir
+    if (document.querySelector(".plasma-ball")) {
+      const me = document.querySelector('script[src*="layout.js"]');
+      const sc = document.createElement("script");
+      sc.type = "module"; sc.src = (me ? me.src.replace(/layout\.js.*$/, "") : "assets/") + "plasma.js?v=6-m1";
+      document.head.appendChild(sc);
     }
 
     // Footer dev logosu: kapsayıcı genişliğini tam doldursun

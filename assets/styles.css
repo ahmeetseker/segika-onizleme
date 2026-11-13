@@ -2182,3 +2182,125 @@ body[data-layout="lp"] .splash { padding-top: 120px; }
 /* Ana sayfa açılışı ve duyuru (splash): içerik dikey ortalanınca üstte fazla boşluk kalıyordu; üste hizalı */
 .hero-in { align-items: start; }
 body[data-layout="lp"] .splash { align-items: start; }
+
+/* WhatsApp düğmesi sadeleştirme (2026-11-12): degrade, kalın gölge ve hover halkası kaldırıldı; düz WhatsApp yeşili, ince beyaz kenar, hafif gölge */
+.wa-fab { width: 54px; height: 54px; background: #128c4a; box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(10,30,18,.22); }
+.wa-fab::after { content: none; }
+.wa-fab:hover { transform: translateY(-1px); background: #0f7a40; box-shadow: 0 0 0 2px #fff, 0 6px 16px rgba(10,30,18,.26); }
+.waw-head { background: #128c4a; }
+.waw-go { background: #128c4a; }
+.waw-go:hover { background: #0f7a40; }
+.waw-panel { max-height: calc(100vh - 54px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); max-height: calc(100svh - 54px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 768px) { .waw-panel { max-height: calc(100vh - 54px - 12px - 48px); max-height: calc(100svh - 54px - 12px - 48px); } }
+
+/* Yatay telefon (iPhone 16 yatay 852×393 vb.): ekran yüksekliği az; üst boşluk ve başlık küçülür, ilk ekranda CTA görünür */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero { min-height: 0; padding-top: 124px; padding-bottom: 40px; }
+  .hero-in { min-height: 0; gap: 28px; }
+  .hero h1 { font-size: 1.85rem; line-height: 1.16; margin-bottom: 10px; }
+  .hero .sub { font-size: 1rem; line-height: 1.5; margin-bottom: 18px; }
+  .phero, .lp-hero, .sv-hero { padding-top: 124px; padding-bottom: 48px; }
+  body[data-layout="lp"] .lp-hero, body[data-layout="lp"] .phero { padding-top: 96px; }
+  body[data-layout="lp"] .splash { padding-top: 92px; }
+  .phero h1, .lp-hero h1, .sv-hero h1, .splash h1 { font-size: 1.85rem; line-height: 1.16; }
+  .section { padding: 48px 0; }
+}
+
+/* Yatay telefon — 2. tur (2026-11-12): üst bar inceldi, header'da CTA, menü iki sütun, hero CTA ilk ekranda, landing formu yanda.
+   Hepsi yalnız yatay + alçak ekranda; dikey düzen değişmez. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hdr-util { height: 28px; }
+  .hdr-main { height: 60px; }
+  .hdr.scrolled .hdr-util { height: 0; }
+  .hero, .phero, .lp-hero, .sv-hero { padding-top: 112px; }
+  body[data-layout="lp"] .lp-hero, body[data-layout="lp"] .phero { padding-top: 84px; }
+  body[data-layout="lp"] .splash { padding-top: 80px; }
+  /* Header'da her zaman görünen birincil CTA (landing/kampanya başlığı yalnız logo kalır) */
+  .hdr:not(.hdr-lp):not(.open) .hdr-cta { display: flex; align-items: center; margin-left: auto; margin-right: 12px; }
+  .hdr-cta .hdr-login { display: none; }
+  .hdr-cta .btn-o { height: 40px; padding: 0 16px; font-size: .9rem; }
+  /* Mobil menü: duyuru şeridi gizlenir, bağlantılar solda, butonlar sağda sabit */
+  .hdr.open .hdr-util { display: none; }
+  .mnav .container { display: grid; grid-template-columns: minmax(0, 1fr) 240px; column-gap: 32px; align-items: start; }
+  .mnav .container > * { grid-column: 1; }
+  .mnav .container > .row { grid-column: 2; grid-row: 1 / span 8; flex-direction: column; margin-top: 8px; position: sticky; top: 8px; }
+  .mnav a, .mnav summary { padding: 11px 0; }
+  /* Hero: CTA, fayda listesinin önüne; liste iki sütun */
+  .crumb, .lp-hero .crumb { margin-bottom: 12px; }
+  .phero .sub { max-width: none; margin-bottom: 0; }
+  .lp-hero:not(.ty) > .container:has(> .btns), .splash-in:has(> .btns) { display: flex; flex-direction: column; align-items: flex-start; }
+  .lp-hero:not(.ty) > .container:has(> .btns) > :is(h1, .sub, .ticks), .splash-in:has(> .btns) > :is(h1, .ticks, .splash-sub) { align-self: stretch; }
+  .lp-hero:not(.ty) > .container > .btns, .splash-in > .btns { order: 1; margin-top: 18px; }
+  .lp-hero > .container > .ticks, .splash-in > .ticks { order: 2; }
+  .lp-hero:not(.ty) > .container:has(> .btns) > .ticks, .splash .ticks { grid-template-columns: 1fr 1fr; gap: 8px 24px; margin: 20px 0 0; max-width: none; }
+  .splash-sub { margin-top: 14px; }
+  /* Landing: metin solda, form sağda */
+  .lp-grid { grid-template-columns: minmax(0, 1fr) 380px; gap: 28px; }
+  .lp-grid .f2 { grid-template-columns: minmax(0, 1fr); }
+  .lp-grid .ticks { gap: 10px; margin: 18px 0; }
+  .ty-ic { width: 48px; height: 48px; margin-bottom: 12px; font-size: 1.3rem; }
+  .ty .btns { margin-top: 18px; }
+}
+/* Footer metin içi bağlantı: dokunma alanı 24 px (satır düzeni değişmez) */
+.ftr .nl small a { padding: 5px 0; }
+/* Yatay telefon: 12 px altındaki etiketler 12 px'e çıkar (dikey değişmez) */
+@media (orientation: landscape) and (max-height: 500px) {
+  .tk-tag, .kick, .node small, .node .pill, .mf-chips i, .mf-live, .mf-n em, .mk-r .tg, .ig-t small, .pk-g th, th small, .cmp-s, .lp-vs th, table th { font-size: 12px; }
+}
+/* Akordeon başlığı: görünüm aynı, dokunma alanı 44 px'e genişler (dikey ve yatay) */
+.cx h3 > .mb-hd { position: relative; }
+.cx h3 > .mb-hd::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%); }
+.ty .demo-note { color: #ddd6d1 !important; }
+/* SAP logosu dolu zemin + beyaz harf: beyaza boyanınca harfler kayboluyordu (düz beyaz blok). Gri tonda bırak, harfler okunsun. */
+.sv-logos img[src*="sap.svg"], .reel-track .rl img[src*="sap.svg"] { filter: grayscale(1) brightness(1.15) contrast(1.05); opacity: .85; }
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Danışmanlık sekme açıklamaları yatayda kesilmesin */
+  .cn-t small { display: block; -webkit-line-clamp: unset; overflow: visible; }
+}
+
+/* Alt sayfa hero'ları ana sayfadaki dağ görselini kullanır (elle çizilmiş scene-dark.svg yerine).
+   Metin solda; okunurluk için soldan koyulaşan örtü, dar ekranda üstten alta koyu örtü. */
+.phero { background: #18181b url("hero-bg.webp") right top/cover no-repeat; isolation: isolate; }
+.phero::before { z-index: -1; background: linear-gradient(90deg, rgba(20,18,22,.92) 0%, rgba(20,18,22,.72) 50%, rgba(20,18,22,.3) 100%); }
+@media (max-width: 960px) { .phero::before { background: linear-gradient(180deg, rgba(20,18,22,.9) 0%, rgba(20,18,22,.74) 60%, rgba(20,18,22,.6) 100%); } }
+
+/* Hero düğümü: Segika logosu halkanın içinde; kutu ve halka buna göre büyütüldü */
+.orb { width: 124px; height: 124px; border-radius: 30px; }
+.orb-ring { width: 108px; height: 108px; }
+.orb .orb-word { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: baseline; font-family: "Poppins", var(--fh); font-weight: 700; font-size: 14px; line-height: 1; letter-spacing: -.02em; color: var(--cream); white-space: nowrap; text-shadow: 0 1px 6px rgba(20,10,10,.45); }
+.orb .orb-word i { display: inline-block; width: .26em; height: .26em; margin-left: .06em; border-radius: 50%; background: var(--grad); }
+@media (max-width: 1100px) { .orb { width: 112px; height: 112px; border-radius: 28px; } .orb-ring { width: 98px; height: 98px; } .orb .orb-word { font-size: 13px; } }
+@media (max-width: 560px) {
+  .dia .orb { width: 106px; height: 106px; border-radius: 26px; }
+  .dia .orb .orb-ring { width: 94px; height: 94px; }
+  .dia .orb .orb-word { position: absolute; display: inline-flex; font-size: 12px; }
+}
+.orb .orb-word { z-index: 1; }
+
+/* Elle çizilmiş scene-dark.svg kalan yerlerde de hero dağ görseli (hero-bg.webp) kullanılır */
+.mega-promo { background: linear-gradient(180deg, rgba(20,18,22,.25) 0%, rgba(20,18,22,.6) 45%, rgba(20,18,22,.9) 100%), #18181b url("hero-bg.webp") right top/cover no-repeat; }
+.close-cta .land { background: url("hero-bg.webp") center 70%/cover no-repeat; }
+.case .art::before { background: url("hero-bg.webp") center/cover no-repeat; }
+
+/* ---------- Bölüm sonu satış satırı (2026-11-13): her bölümde "Ücretsiz kayıt olun" → Bilgi Al formu ---------- */
+.sec-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 28px; margin-top: 44px; }
+.sec-cta .link { min-height: 44px; }
+.sv-sticky .sec-cta, .sv-tools .sec-cta, .sv-tesvik .sec-cta, .sv-int .sec-cta, .sv-cons .sec-cta, .sv-sect .sec-cta, .sv-map .sec-cta { position: relative; z-index: 1; }
+@media (max-width: 560px) { .sec-cta { margin-top: 32px; } .sec-cta .btn { width: 100%; justify-content: center; } }
+@media (orientation: landscape) and (max-height: 500px) { .sec-cta { margin-top: 28px; } }
+.note-bar .btns { flex-wrap: wrap; }
+@media (max-width: 560px) { .note-bar .btns { width: 100%; } .note-bar .btns .btn { flex: 1 1 100%; justify-content: center; } }
+/* Kayıt CTA'ları her yerde en az 44 px dokunma alanı (Codex CX-01) */
+a.btn[href="landing.html"], a.btn[href="#kayit"], a.link[href="landing.html"], a.link[href="#kayit"], .pk-g a[href="landing.html"], .hdr-cta .btn-o { min-height: 44px; }
+a.link[href="landing.html"], a.link[href="#kayit"] { display: inline-flex; align-items: center; }
+@media (orientation: landscape) and (max-height: 500px) { .hdr:not(.hdr-lp):not(.open) .hdr-cta .btn-o { height: 44px; } }
+/* Ana sayfa kapsam (bento): masaüstünde CTA kısa kalan sol sütunun altındaki boşlukta; dar ekranda bölüm sonunda */
+.chn-cta { display: none; }
+@media (min-width: 1024px) {
+  .chn-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 8px 4px 0; }
+  .bento-sec:has(.chn-cta) > .container > .sec-cta, .bento-sec:has(.chn-cta) > .sec-cta { display: none; }
+}
+.chn-cta .link { min-height: 44px; }
+
+/* Header: Giriş Yap ve kayıt butonu aynı 44 px (Argon AR-03) */
+.hdr-cta .btn { min-height: 44px; }

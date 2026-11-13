@@ -64,16 +64,16 @@
   ];
   // Üst koyu şeritte sırayla dönen duyuru / kampanya mesajları (gerçek içerik, bağlantılı)
   const TICKER = [
-    ["Geriye dönük SGK teşvikleri artık alınamıyor", "duyuru.html", "Duyuru", "alert"],
-    ["Kaçan teşviki çalışan bazında görün", "landing.html", "Ücretsiz analiz", "search"],
-    ["Paketler aylık 1.600 TL'den başlar", "ucretsiz-deneme.html", "Ücretsiz deneme", "zap"],
+    ["Sağlık raporları SMS onayı beklemeden otomatik onaylanır", "landing.html", "Ücretsiz kayıt", "heart"],
+    ["Emniyet ve Jandarma bildirimi otomatik", "hizmetler.html#kimlik", "Otomasyon", "id"],
+    ["Paketler aylık 1.600 TL'den başlar", "hizmetler.html#fiyatlandirma", "Fiyatlar", "zap"],
   ];
   const consulting = [["İş ve Sosyal Güvenlik Hukuku", "hizmetler.html#hukuk"], ["İnsan Kaynakları Yönetimi", "hizmetler.html#ik-danismanlik"], ["Personel Bulma ve İşe Alım", "hizmetler.html#ise-alim"]];
 
   function header(page, layout) {
     const cur = (p) => (page === p ? ' aria-current="page"' : "");
-    // "Ücretsiz deneyin" düğmeleri deneme açılış sayfasına gider; o sayfadayken doğrudan kayda
-    const TRY = page === "trial" ? APP + "/register" : "ucretsiz-deneme.html";
+    // "Ücretsiz kayıt olun" düğmeleri Bilgi Al sayfasındaki kayıt formuna gider (form e-posta taslağı hazırlar)
+    const TRY = page === "landing" ? "#kayit" : "landing.html";
     // Landing / kampanya sayfaları (data-layout="lp"): aynı header tasarımında yalnız logo.
     // Sayfanın tek eylemi açılış alanında durur; header'da tekrarlanmaz. Menü, şerit, mobil menü yok; footer tam kalır.
     if (layout === "lp") {
@@ -88,7 +88,7 @@
     <header class="hdr" id="hdr">
       <div class="hdr-util"><div class="container">
         <div class="tk" role="region" aria-label="Duyuru ve kampanyalar"><ul class="tk-list">${TICKER.map(([t, h, tag, ic], i) => `<li class="tk-it${i ? "" : " is-on"}"${i ? ' aria-hidden="true" inert' : ""}><a href="${h}"${i ? ' tabindex="-1"' : ""}${h === page + ".html" || (page === "duyuru" && h === "duyuru.html") ? ' aria-current="page"' : ""}><span class="tk-tag">${icon(ic, 13)}${tag}</span><span class="tk-txt">${t}</span><span class="tk-go" aria-hidden="true">${icon("right", 14)}</span></a></li>`).join("")}</ul></div>
-        <nav aria-label="Hesap ve destek"><a href="${APP}/login">${icon("lock", 14)}Üye Girişi</a><a href="${WA}" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Zm0 18.15a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 4.54 0 8.24 3.69 8.24 8.24 0 4.54-3.7 8.23-8.24 8.23Z"/></svg>WhatsApp Destek</a></nav></div></div>
+        <nav aria-label="Hesap ve destek"><a href="${APP}/login">${icon("lock", 14)}Üye Girişi</a></nav></div></div>
       <div class="hdr-main"><div class="container">
         ${logo()}
         <nav aria-label="Ana menü" style="flex:1"><ul class="menu">
@@ -97,17 +97,17 @@
             <div class="mega" id="mg1"><div><h5>Program modülleri</h5><ul>${products.map(([i, t, d, h]) => `<li><a href="${h}"><span class="mi">${icon(i, 18)}</span><span><strong>${t}</strong><span>${d}</span></span></a></li>`).join("")}</ul>
               <a class="link" href="hizmetler.html" style="margin:14px 10px 0">Tüm hizmetleri ve fiyatları inceleyin ${icon("up", 14)}</a></div>
               <div style="display:grid;gap:18px;align-content:start"><div><h5>Danışmanlık</h5><ul>${consulting.map(([t, h]) => `<li><a href="${h}"><strong>${t}</strong></a></li>`).join("")}</ul></div>
-              <div class="mega-promo"><h4>Segika'yı ücretsiz deneyin</h4><p>Teşvik hesaplama ve SGK otomasyonlarını kendi verinizle görün.</p><a class="btn btn-o" href="${TRY}" style="align-self:flex-start;height:40px">Ücretsiz deneyin ${icon("up", 14)}</a></div></div></div></li>
+              <div class="mega-promo"><h4>SGK işlerinizi otomasyona bırakın</h4><p>Sağlık raporu onayı, kimlik bildirimi, İŞKUR çizelgesi ve teşvik hesaplama tek panelde.</p><a class="btn btn-o" href="${TRY}" style="align-self:flex-start">Ücretsiz kayıt olun ${icon("up", 14)}</a></div></div></div></li>
           <li><a href="hizmetler.html#fiyatlandirma">Fiyatlandırma</a></li>
           <li><a href="hakkimizda.html"${cur("about")}>Hakkımızda</a></li>
           <li><a href="landing.html"${cur("landing")}>Bilgi Al</a></li>
         </ul></nav>
-        <div class="hdr-cta"><a class="btn hdr-login" href="${APP}/login"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Giriş Yap</a><a class="btn btn-o" href="${TRY}">Ücretsiz Deneyin ${icon("up", 16)}</a></div>
+        <div class="hdr-cta"><a class="btn hdr-login" href="${APP}/login"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Giriş Yap</a><a class="btn btn-o" href="${TRY}">Ücretsiz kayıt olun ${icon("up", 16)}</a></div>
         <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menüyü aç"><span class="bl" aria-hidden="true"></span><span class="bl" aria-hidden="true"></span></button>
       </div></div>
       <div class="mnav" id="mnav"><div class="container">
         <a href="index.html"${cur("home")}>Ana Sayfa</a><details><summary>Hizmetler ${icon("chev", 18)}</summary><a href="hizmetler.html">Tüm hizmetler</a>${products.map(([, t, , h]) => `<a href="${h}">${t}</a>`).join("")}${consulting.map(([t, h]) => `<a href="${h}">${t}</a>`).join("")}</details><a href="hizmetler.html#fiyatlandirma">Fiyatlandırma</a><a href="hakkimizda.html"${cur("about")}>Hakkımızda</a><a href="landing.html"${cur("landing")}>Bilgi Al</a>
-        <div class="row"><a class="btn btn-w" href="${APP}/login">Üye Girişi</a><a class="btn btn-o" href="${TRY}">Ücretsiz Deneyin</a></div>
+        <div class="row"><a class="btn btn-w" href="${APP}/login">Üye Girişi</a><a class="btn btn-o" href="${TRY}">Ücretsiz kayıt olun</a></div>
       </div></div>
     </header>`;
   }
@@ -123,7 +123,7 @@
           <small>Bilgileriniz yalnızca size dönüş yapmak için kullanılır. Ayrıntılar <a href="https://www.segika.com/kurallar/gizlilik-politikasi/" data-modal="gizlilik" style="text-decoration:underline">Gizlilik Politikası</a>'nda.</small></div></div>
       <div class="ftr-cols">
         ${col("Hizmetler", products.map(([, t, , h]) => [t, h]))}
-        ${col("Segika", [["Ana Sayfa", "index.html"], ["Hakkımızda", "hakkimizda.html"], ["Hizmetler", "hizmetler.html"], ["SGK Teşvik Hesaplama", "tesvik.html"], ["Fiyatlandırma", "hizmetler.html#fiyatlandirma"], ["Duyuru", "duyuru.html"], ["Bilgi Al", "landing.html"], ["Ücretsiz Deneyin", "ucretsiz-deneme.html"], ["Üye Girişi", APP + "/login"]])}
+        ${col("Segika", [["Ana Sayfa", "index.html"], ["Hakkımızda", "hakkimizda.html"], ["Hizmetler", "hizmetler.html"], ["SGK Teşvik Hesaplama", "tesvik.html"], ["Fiyatlandırma", "hizmetler.html#fiyatlandirma"], ["Duyuru", "duyuru.html"], ["Bilgi Al / Ücretsiz Kayıt", "landing.html"], ["SGK Otomasyon", "ucretsiz-deneme.html"], ["Üye Girişi", APP + "/login"]])}
       </div>
       <div class="ftr-mark" aria-hidden="true"><svg class="mark-ic" viewBox="-10 -10 220 220" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2403a"/><stop offset="1" stop-color="#f26b3a"/></linearGradient><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="5"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/></filter><mask id="rm"><g filter="url(#goo)" fill="#fff"><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-width="24"/><g class="orb-a"><circle cx="153" cy="47" r="34"/><circle cx="174" cy="100" r="17"/></g><g class="orb-b"><circle cx="153" cy="153" r="30"/></g><g class="orb-c"><circle cx="47" cy="153" r="20"/></g></g></mask></defs><rect x="-10" y="-10" width="220" height="220" fill="url(#rg)" mask="url(#rm)"/></svg><span class="logo mark-word">Segika<i></i></span></div>
       </div>${bot}</footer>`;
@@ -638,8 +638,10 @@
       const ok = em.checkValidity() && em.value.trim() !== "";
       em.setAttribute("aria-invalid", String(!ok));
       if (!ok) { msg.className = "nl-msg bad"; msg.textContent = "Geçerli bir e-posta adresi girin."; em.focus(); return; }
-      msg.className = "nl-msg ok"; msg.textContent = "Teşekkürler! Talebinizi aldık; ekibimiz " + em.value.trim() + " adresine dönüş yapacak.";
-      f.reset();
+      // Backend yok: dürüst akış, e-posta taslağı açılır; gönderimi kullanıcı tamamlar
+      const href = "mailto:sgk@turksab.com?subject=" + encodeURIComponent("Segika bilgi talebi") + "&body=" + encodeURIComponent("Merhaba,\r\n\r\nSegika hakkında bilgi almak istiyorum.\r\n\r\nE-posta: " + em.value.replace(/[\r\n]+/g, " ").trim());
+      msg.className = "nl-msg ok"; msg.textContent = "E-posta taslağınız açılıyor; gönderdiğinizde talebiniz bize ulaşır.";
+      if (f.dispatchEvent(new CustomEvent("segika:maildraft", { detail: href, cancelable: true }))) location.href = href;
     }));
 
     // Açılır liste: asıl <select> formda gizli kalır (değer, required, doğrulama),
@@ -700,14 +702,25 @@
         inp.setAttribute("aria-invalid", String(!ok)); if (!ok && !first) first = inp;
       });
       if (first) return first.focus();
-      // Başarılı gönderim: teşekkür sayfasına geç. Yönlendirme yapılamazsa kart içi onay kutusu gösterilir.
-      try { location.assign(f.dataset.next || "tesekkurler.html"); return; } catch (err) { /* aşağıdaki yedek yol */ }
+      // Backend yok: alanlar sgk@turksab.com'a e-posta taslağı olarak kodlanır, gönderimi kullanıcı tamamlar.
+      // Testler iptal edilebilir "segika:maildraft" olayıyla gerçek e-posta uygulamasını açmadan doğrular.
+      const val = (sel) => { const el = f.querySelector(sel); return el ? String(el.value).replace(/[\r\n]+/g, " ").trim() : ""; };
+      const lab = (el) => { const fl = el.closest(".fld"), l = (el.id && f.querySelector('label[for="' + el.id + '"]')) || (fl && fl.querySelector("label")); return l ? l.textContent.replace(/\s*\(.*\)$/, "").trim() : el.id; };
+      const lines = ["Merhaba,", "", (document.getElementById("kayit") ? "Segika için ücretsiz kayıt ve bilgi talep ediyorum." : "Segika hakkında bilgi ve demo talep ediyorum."), ""];
+      f.querySelectorAll("input:not([type=checkbox]), select, textarea").forEach((el) => { const v = val("#" + CSS.escape(el.id)); if (el.id && v) lines.push(lab(el) + ": " + v); });
+      lines.push("", "KVKK aydınlatma metnini okudum.");
+      const href = "mailto:sgk@turksab.com?subject=" + encodeURIComponent(document.getElementById("kayit") ? "Segika ücretsiz kayıt ve bilgi talebi" : "Segika bilgi ve demo talebi") + "&body=" + encodeURIComponent(lines.join("\r\n"));
       const card = f.closest(".fcard"), ok = card && card.querySelector(".okbox");
-      if (card && ok) { card.classList.add("done"); ok.focus(); }
+      if (card && ok) { const again = ok.querySelector("[data-mail-again]"); if (again) again.href = href; card.classList.add("done"); ok.focus(); }
+      if (f.dispatchEvent(new CustomEvent("segika:maildraft", { detail: href, cancelable: true }))) {
+        try { sessionStorage.setItem("segika:draft", href); } catch (err) {}
+        location.href = href;
+        setTimeout(() => { location.assign(f.dataset.next || "tesekkurler.html"); }, 1200);
+      }
     }));
 
     // Landing yapışkan CTA
-    const sticky = document.querySelector(".sticky"), anchor = document.getElementById("analiz");
+    const sticky = document.querySelector(".sticky"), anchor = document.getElementById("kayit");
     if (sticky && anchor && "IntersectionObserver" in window) {
       b.classList.add("has-sticky");
       new IntersectionObserver(([e]) => sticky.classList.toggle("show", !e.isIntersecting)).observe(anchor);

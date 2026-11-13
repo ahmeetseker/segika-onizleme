@@ -51,3 +51,18 @@ html:not(.js) .hw, .hw.hw-off { height: auto; }
 
 /* Boşluk düzeni (2026-11-12): ana sayfa açılış kartında header altı pay 72 → 48 px */
 .hero-in { padding-top: calc(var(--header-h) + 48px); }
+
+/* Yatay telefon: hero ekran yüksekliğine sığar, CTA ilk ekranda */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero { min-height: 0; }
+  .hero-in { padding-top: calc(var(--header-h) + 20px); gap: 18px; }
+  .hero h1 { font-size: 40px; }
+  .hero-foot { gap: 16px; }
+  .hero-text { gap: 8px; }
+  .hero-sub { font-size: 16px; }
+}
+
+/* Yatay telefon: kart etiketleri 12 px (dikey değişmez) */
+@media (orientation: landscape) and (max-height: 500px) {
+  .usp-card li { font-size: 12px; }
+}

@@ -389,7 +389,7 @@
       var body = [
         "Merhaba,",
         "",
-        "Segika hakkında bilgi ve demo talep ediyorum.",
+        (document.getElementById("kayit") ? "Segika için ücretsiz kayıt ve bilgi talep ediyorum." : "Segika hakkında bilgi ve demo talep ediyorum."),
         "",
         "Ad soyad: " + val("ad"),
         "Telefon: " + val("tel"),
@@ -398,7 +398,7 @@
         "",
         "KVKK aydınlatma metnini okudum."
       ].join("\r\n");
-      return "mailto:" + to + "?subject=" + encodeURIComponent("Segika bilgi ve demo talebi") + "&body=" + encodeURIComponent(body);
+      return "mailto:" + to + "?subject=" + encodeURIComponent(document.getElementById("kayit") ? "Segika ücretsiz kayıt ve bilgi talebi" : "Segika bilgi ve demo talebi") + "&body=" + encodeURIComponent(body);
     }
     if (edit) edit.addEventListener("click", function (e) {
       e.preventDefault();
@@ -561,4 +561,12 @@
       open(i, dlg && dlg.open ? opener : a);
     });
   })();
+})();
+
+/* Karşılaştırma tablosu ekrana sığıyorsa "yana kaydırın" ipucu gizlenir */
+(function () {
+  var hint = document.querySelector(".cmp-hint"), box = document.querySelector(".cmp-scroll");
+  if (!hint || !box) return;
+  function upd() { hint.hidden = box.scrollWidth <= box.clientWidth + 1; }
+  upd(); window.addEventListener("resize", upd); if (document.fonts && document.fonts.ready) document.fonts.ready.then(upd);
 })();

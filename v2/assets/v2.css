@@ -722,3 +722,60 @@ h3.codes-h { margin: 0 0 8px; font-weight: 400; font-size: inherit; }
 /* Bölüm başlıkları: üstte daha az pay */
 .hg { padding-top: clamp(36px, 4.5vw, 80px); padding-bottom: clamp(40px, 4.5vw, 80px); }
 .hg > * { padding-top: 24px; }
+
+/* WhatsApp düğmesi sadeleştirme (2026-11-12): degrade, kalın gölge ve hover halkası kaldırıldı; düz WhatsApp yeşili, ince beyaz kenar, hafif gölge */
+.wa-fab { width: 54px; height: 54px; background: #128c4a; box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(10,30,18,.22); }
+.wa-fab::after { content: none; }
+.wa-fab:hover { transform: translateY(-1px); background: #0f7a40; box-shadow: 0 0 0 2px #fff, 0 6px 16px rgba(10,30,18,.26); }
+.waw-head { background: #128c4a; }
+.waw-go { background: #128c4a; }
+.waw-go:hover { background: #0f7a40; }
+.waw-panel { max-height: calc(100vh - 54px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); max-height: calc(100svh - 54px - 12px - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 768px) { .waw-panel { max-height: calc(100vh - 54px - 12px - 48px); max-height: calc(100svh - 54px - 12px - 48px); } }
+
+/* Yatay telefon (iPhone 16 yatay 852×393 vb.): üst boşluk ve başlık küçülür, ilk ekranda CTA görünür */
+@media (orientation: landscape) and (max-height: 500px) {
+  .phero-in { padding-top: calc(var(--header-h) + 20px); padding-bottom: 32px; }
+  .phero h1 { font-size: 40px; }
+  .hg { padding-top: 32px; padding-bottom: 32px; }
+}
+
+/* Yatay telefon — 2. tur: alt sayfa başlığı 2 satıra iner, CTA ilk ekranda; menü yatay sığar */
+@media (orientation: landscape) and (max-height: 500px) {
+  .phero-in { gap: 14px; }
+  .phero h1 { font-size: 36px; max-width: 22em; }
+  .phero .lead { max-width: 68ch; font-size: 16px; }
+  .popup { flex-direction: row; align-items: center; justify-content: center; gap: 56px; padding: 92px 32px 20px; }
+  .popup ul { margin: 0; gap: 0; text-align: left; }
+  .popup li a { font-size: 28px; }
+  .popup .p-cta { margin-top: 0; }
+}
+/* Yatay telefon: 12 px altındaki etiketler 12 px'e çıkar (dikey değişmez) */
+@media (orientation: landscape) and (max-height: 500px) {
+  .price small, .cmp-term, .cmp-col-pkg .tag, .fl-s, .mk-st, .mk-foot { font-size: 12px; }
+}
+
+/* 3. tur (tam sayfa yatay tarama) */
+/* Hukuki sayfa hero'sundaki tarih satırı koyu zeminde okunmuyordu (her yönde) */
+.phero .legal-meta { color: rgba(255,255,255,.8); }
+/* Hukuki metin satır uzunluğu ~70 karakter */
+.prose { max-width: 68ch; }
+@media (orientation: landscape) and (max-height: 500px) {
+  /* 3 rakam iki sütunda tek kalıyordu; yatayda 3 sütun */
+  .stats.stats-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.cmp-hint[hidden] { display: none; }
+/* Footer'dan önceki son bölüm footer'a yapışıyordu (Duyuru, Teşekkürler, hukuki sayfalar); alt boşluk */
+main > section.sec:last-of-type:not(.price-wrap) { padding-bottom: clamp(56px, 7vw, 96px); }
+.price-wrap > .wrap > .price-note:last-child, .price-wrap .price-note { margin-bottom: 32px; }
+/* WhatsApp düğmesi her sayfada baştan görünür (kaydırınca belirme kaldırıldı) */
+.waw { opacity: 1; visibility: visible; transform: none; }
+
+/* ---------- Bölüm sonu satış satırı (2026-11-13): her bölümde "Ücretsiz kayıt olun" → Bilgi Al formu ---------- */
+.hg:has(+ .sec-cta) { padding-bottom: 0; }
+.sec-cta { padding-top: 32px; padding-bottom: clamp(48px, 5vw, 96px); }
+.sec-cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
+.sec-cta-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--slate); font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.sec-cta-link:hover { color: var(--green-dark); }
+@media (min-width: 1024px) { .sec-cta-row { margin-left: calc((100% - 20px) / 3 + 20px); } }
+@media (orientation: landscape) and (max-height: 500px) { .sec-cta { padding-top: 24px; padding-bottom: 40px; } }

@@ -157,7 +157,7 @@
 
 /* Formlar (landing + hizmetler iletişim), mobil: daha ince alanlar */
 @media (max-width: 560px) {
-  .fcard .fld input, .fcard .fld select, .fcard .dd-btn { height: 42px !important; border-radius: 11px !important; padding-left: 13px !important; }
+  .fcard .fld input, .fcard .fld select, .fcard .dd-btn { height: 44px !important; border-radius: 11px !important; padding-left: 13px !important; }
   .fcard .fld { margin-bottom: 10px !important; gap: 4px !important; }
   .fcard .fld label { font-size: .8rem !important; }
   .fcard .btn { height: 46px !important; font-size: .94rem !important; }

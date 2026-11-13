@@ -129,7 +129,7 @@ p { margin: 0 0 1em; }
 
 
 /* ===== HERO ===== */
-.hero { position: relative; min-height: 100vh; min-height: 100svh; background: #18181b url("hero-bg.webp") right top/cover no-repeat; color: var(--muted-d); padding: 200px 0 0; overflow: hidden; isolation: isolate; }
+.hero { position: relative; min-height: 100vh; min-height: 100svh; background: #18181b url("hero-bg.webp?v=ipek2") right top/cover no-repeat; color: var(--muted-d); padding: 200px 0 0; overflow: hidden; isolation: isolate; }
 .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(24,24,27,.55) 0%, rgba(24,24,27,0) 45%); z-index: -1; }
 .hero-in { display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; align-items: center; min-height: calc(100svh - 360px); }
 .hero-in > * { min-width: 0; }
@@ -633,7 +633,7 @@ section[id] { scroll-margin-top: 70px; }
 /* =====================================================================
    HİZMETLER SAYFASI — bileşenler, Segika içeriğiyle
    ===================================================================== */
-.sv-hero { position: relative; isolation: isolate; background: #261a28 url("hero-bg.webp") right top/cover no-repeat; color: #d8d2cc; padding: 190px 0 80px; overflow: hidden; }
+.sv-hero { position: relative; isolation: isolate; background: #261a28 url("hero-bg.webp?v=ipek2") right top/cover no-repeat; color: #d8d2cc; padding: 190px 0 80px; overflow: hidden; }
 .sv-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(38,26,40,.92) 0%, rgba(38,26,40,.6) 50%, rgba(38,26,40,.15) 100%); }
 .sv-hero-in { display: flex; gap: 80px; align-items: center; }
 .sv-hero-txt { flex: 0 1 560px; min-width: 0; }
@@ -831,7 +831,7 @@ section[id] { scroll-margin-top: 70px; }
 @media (max-width: 560px) { .sv-proof { grid-template-columns: 1fr 1fr; } .sv-proof > div:nth-child(2) { border-right: 0; } .sv-proof > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
 
 /* kapanış */
-.sv-close { position: relative; isolation: isolate; min-height: 620px; display: grid; place-items: center; text-align: center; background: #18181b url("hero-bg.webp") center/cover no-repeat; overflow: hidden; }
+.sv-close { position: relative; isolation: isolate; min-height: 620px; display: grid; place-items: center; text-align: center; background: #18181b url("hero-bg.webp?v=ipek2") center/cover no-repeat; overflow: hidden; }
 .sv-close::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(24,24,27,.35), rgba(24,24,27,.85)); }
 .sv-close-in { max-width: 560px; padding: 80px 20px; }
 .sv-close h2 { color: #fff; font-size: clamp(2.2rem, 4vw, 3rem); }
@@ -1205,7 +1205,7 @@ dialog.pmodal { z-index: 2147483647; }
 
 /* Kapanış bölümü: çizim dağlar yerine hero'daki gerçek dağ görseli, footer'a yumuşak geçiş */
 .close-cta { position: relative; isolation: isolate; overflow: hidden; padding: 140px 0 clamp(220px, 24vw, 340px);
-  background: linear-gradient(180deg, #1f1b22 0%, rgba(31, 27, 34, .92) 30%, rgba(31, 27, 34, .35) 62%, rgba(24, 24, 27, .2) 78%, #18181b 100%), url("hero-bg.webp") center 62% / cover no-repeat; }
+  background: linear-gradient(180deg, #1f1b22 0%, rgba(31, 27, 34, .92) 30%, rgba(31, 27, 34, .35) 62%, rgba(24, 24, 27, .2) 78%, #18181b 100%), url("hero-bg.webp?v=ipek2") center 62% / cover no-repeat; }
 .close-cta::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; z-index: -1; background: radial-gradient(60% 80% at 50% 100%, rgba(245, 66, 83, .18), transparent 70%); pointer-events: none; }
 .close-cta .land { display: none; }
 @media (max-width: 760px) { .close-cta { padding: 96px 0 200px; background-size: auto, 220% auto; background-position: 0 0, 70% 100%; } }
@@ -2042,7 +2042,7 @@ html.show--consent .sticky { display: none; }
 .ab-co .mc p { font-size: 1rem; }
 
 /* Duyuru (splash) sayfası: tam ekran, tek mesaj, iki yol */
-.splash { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: 150px 0 80px; background: #18181b url("hero-bg.webp") right top/cover no-repeat; color: var(--muted-d); overflow: hidden; }
+.splash { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: 150px 0 80px; background: #18181b url("hero-bg.webp?v=ipek2") right top/cover no-repeat; color: var(--muted-d); overflow: hidden; }
 .splash::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20,18,22,.94) 0%, rgba(20,18,22,.78) 55%, rgba(20,18,22,.45) 100%); }
 .splash > .container { min-width: 0; }
 .splash-in { max-width: 780px; }
@@ -2260,7 +2260,7 @@ body[data-layout="lp"] .splash { align-items: start; }
 
 /* Alt sayfa hero'ları ana sayfadaki dağ görselini kullanır (elle çizilmiş scene-dark.svg yerine).
    Metin solda; okunurluk için soldan koyulaşan örtü, dar ekranda üstten alta koyu örtü. */
-.phero { background: #18181b url("hero-bg.webp") right top/cover no-repeat; isolation: isolate; }
+.phero { background: #18181b url("hero-bg.webp?v=ipek2") right top/cover no-repeat; isolation: isolate; }
 .phero::before { z-index: -1; background: linear-gradient(90deg, rgba(20,18,22,.92) 0%, rgba(20,18,22,.72) 50%, rgba(20,18,22,.3) 100%); }
 @media (max-width: 960px) { .phero::before { background: linear-gradient(180deg, rgba(20,18,22,.9) 0%, rgba(20,18,22,.74) 60%, rgba(20,18,22,.6) 100%); } }
 
@@ -2278,9 +2278,9 @@ body[data-layout="lp"] .splash { align-items: start; }
 .orb .orb-word { z-index: 1; }
 
 /* Elle çizilmiş scene-dark.svg kalan yerlerde de hero dağ görseli (hero-bg.webp) kullanılır */
-.mega-promo { background: linear-gradient(180deg, rgba(20,18,22,.25) 0%, rgba(20,18,22,.6) 45%, rgba(20,18,22,.9) 100%), #18181b url("hero-bg.webp") right top/cover no-repeat; }
-.close-cta .land { background: url("hero-bg.webp") center 70%/cover no-repeat; }
-.case .art::before { background: url("hero-bg.webp") center/cover no-repeat; }
+.mega-promo { background: linear-gradient(180deg, rgba(20,18,22,.25) 0%, rgba(20,18,22,.6) 45%, rgba(20,18,22,.9) 100%), #18181b url("hero-bg.webp?v=ipek2") right top/cover no-repeat; }
+.close-cta .land { background: url("hero-bg.webp?v=ipek2") center 70%/cover no-repeat; }
+.case .art::before { background: url("hero-bg.webp?v=ipek2") center/cover no-repeat; }
 
 /* ---------- Bölüm sonu satış satırı (2026-11-13): her bölümde "Ücretsiz kayıt olun" → Bilgi Al formu ---------- */
 .sec-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 28px; margin-top: 44px; }
